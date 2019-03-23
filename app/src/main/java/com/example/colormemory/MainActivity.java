@@ -33,18 +33,18 @@ import java.util.concurrent.ExecutionException;
 public class MainActivity extends AppCompatActivity {
 
     private DatabaseReference scoreUser;
-    private String userID;
+    private String userID, pseudo;
 
     private Button btnChangePassword, btnRemoveUser,
             changePassword, remove, signOut;
     private TextView email, score;
 
-    private ImageView cch_fac, cch_dif, cch_exp, cch_spe;
+    private ImageView cch_fac, cch_dif, cch_exp, cch_spe, cch_chr;
 
     private EditText oldEmail, password, newPassword;
     private ProgressBar progressBar;
     private FirebaseAuth auth;
-    private Button facile, difficile, expert, special, test;
+    private Button facile, difficile, expert, special, chrono, test;
 
 
     @Override
@@ -56,8 +56,14 @@ public class MainActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         email = (TextView) findViewById(R.id.useremail);
 
-        userID = auth.getCurrentUser().getUid();
-        scoreUser = FirebaseDatabase.getInstance().getReference().child("ID").child(userID);
+
+        final Intent getPseudo = getIntent();
+        pseudo = getPseudo.getStringExtra("Pseudo");
+
+        if (auth.getCurrentUser() != null) {
+            userID = auth.getCurrentUser().getUid();
+            scoreUser = FirebaseDatabase.getInstance().getReference().child("ID").child(userID);
+        }
         score = findViewById(R.id.score);
 
         //get current user
@@ -82,17 +88,20 @@ public class MainActivity extends AppCompatActivity {
         expert = findViewById(R.id.expert);
         test = findViewById(R.id.test);
         special = findViewById(R.id.special);
+        chrono = findViewById(R.id.chrono);
         Typeface font = Typeface.createFromAsset(getAssets(), "fonts/edosz.ttf");
         facile.setTypeface(font);
         difficile.setTypeface(font);
         expert.setTypeface(font);
         test.setTypeface(font);
         special.setTypeface(font);
+        chrono.setTypeface(font);
 
         cch_fac = findViewById(R.id.coche_facile);
         cch_dif = findViewById(R.id.coche_difficile);
         cch_exp = findViewById(R.id.coche_expert);
         cch_spe = findViewById(R.id.coche_special);
+        cch_chr = findViewById(R.id.coche_chrono);
 
 
         facile.setOnClickListener(new View.OnClickListener() {
@@ -150,51 +159,76 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-        scoreUser.addValueEventListener(new ValueEventListener() {
+        chrono.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                score.setText("Record : " + dataSnapshot.child("bestScore").getValue());
+            public void onClick(View view) {
+                Intent lance_jeu = new Intent(MainActivity.this, Jeu.class);
+                lance_jeu.putExtra("int_value", 6);
+                startActivity(lance_jeu);
 
-                if (dataSnapshot.child("mail").getValue(String.class) == null)
-                    scoreUser.child("mail").setValue(user.getEmail());
-                if (dataSnapshot.child("bestScore").getValue(double.class) == null)
-                    scoreUser.child("bestScore").setValue(0);
-
-                if (dataSnapshot.child("testmode").getValue(boolean.class) != null)
-                    test.setVisibility(View.VISIBLE);
-                else
-                    test.setVisibility(View.INVISIBLE);
-
-                if (dataSnapshot.child("faccomplete").getValue() != null)
-                    cch_fac.setVisibility(View.VISIBLE);
-                else
-                    cch_fac.setVisibility(View.INVISIBLE);
-
-                if (dataSnapshot.child("diffcomplete").getValue() != null)
-                {   cch_dif.setVisibility(View.VISIBLE);
-                    special.setVisibility(View.VISIBLE);}
-                else
-                {   cch_dif.setVisibility(View.INVISIBLE);
-                    special.setVisibility(View.INVISIBLE);}
-
-                if (dataSnapshot.child("expcomplete").getValue() != null)
-                    cch_exp.setVisibility(View.VISIBLE);
-                else
-                    cch_exp.setVisibility(View.INVISIBLE);
-
-                if (dataSnapshot.child("specomplete").getValue() != null)
-                    cch_spe.setVisibility(View.VISIBLE);
-                else
-                    cch_spe.setVisibility(View.INVISIBLE);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_right);
             }
         });
 
+
+        if (auth.getCurrentUser() != null) {
+            scoreUser.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    score.setText("Record : " + dataSnapshot.child("bestScore").getValue());
+
+                    if (dataSnapshot.child("pseudo").getValue() != null)
+                        email.setText("Connecté en tant que : " + dataSnapshot.child("pseudo").getValue());
+
+                    if ((dataSnapshot.child("pseudo").getValue(String.class) == null) && (pseudo != null))
+                        scoreUser.child("pseudo").setValue(pseudo);
+
+                    if (dataSnapshot.child("mail").getValue(String.class) == null)
+                        scoreUser.child("mail").setValue(user.getEmail());
+
+                    if (dataSnapshot.child("bestScore").getValue(double.class) == null)
+                        scoreUser.child("bestScore").setValue(0);
+
+                    if (dataSnapshot.child("testmode").getValue(boolean.class) != null)
+                        test.setVisibility(View.VISIBLE);
+                    else
+                        test.setVisibility(View.INVISIBLE);
+
+                    if (dataSnapshot.child("faccomplete").getValue() != null)
+                        cch_fac.setVisibility(View.VISIBLE);
+                    else
+                        cch_fac.setVisibility(View.INVISIBLE);
+
+                    if (dataSnapshot.child("diffcomplete").getValue() != null) {
+                        cch_dif.setVisibility(View.VISIBLE);
+                        special.setVisibility(View.VISIBLE);
+                    } else {
+                        cch_dif.setVisibility(View.INVISIBLE);
+                        special.setVisibility(View.INVISIBLE);
+                    }
+
+                    if (dataSnapshot.child("expcomplete").getValue() != null)
+                        cch_exp.setVisibility(View.VISIBLE);
+                    else
+                        cch_exp.setVisibility(View.INVISIBLE);
+
+                    if (dataSnapshot.child("specomplete").getValue() != null)
+                        cch_spe.setVisibility(View.VISIBLE);
+                    else
+                        cch_spe.setVisibility(View.INVISIBLE);
+
+                    if (dataSnapshot.child("chrcomplete").getValue() != null)
+                        cch_chr.setVisibility(View.VISIBLE);
+                    else
+                        cch_chr.setVisibility(View.INVISIBLE);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
 
         btnChangePassword = (Button) findViewById(R.id.change_password_button);
 
@@ -327,9 +361,6 @@ public class MainActivity extends AppCompatActivity {
                 // launch login activity
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 finish();
-            } else {
-                setDataToView(user);
-
             }
         }
 

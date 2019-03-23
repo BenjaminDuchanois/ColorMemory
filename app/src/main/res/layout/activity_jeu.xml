@@ -163,6 +163,17 @@
         android:visibility="visible"/>
 
     <TextView
+        android:id="@+id/chronometre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/textViewDifficulte"
+        android:text="25"
+        android:textSize="25dp"
+        android:textColor="@color/white"
+        android:layout_margin="32dp"
+        android:visibility="invisible"/>
+
+    <TextView
         android:id="@+id/textViewVies"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

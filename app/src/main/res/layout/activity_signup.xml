@@ -26,6 +26,14 @@
                 tools:ignore="ContentDescription" />
 
             <EditText
+                android:id="@+id/pseudo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Pseudo"
+                android:maxLines="1"
+                android:textColor="@android:color/white" />
+
+            <EditText
                 android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

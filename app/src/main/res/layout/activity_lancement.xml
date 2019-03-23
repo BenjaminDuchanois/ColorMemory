@@ -73,16 +73,16 @@
                         android:visibility="invisible"
                         android:elevation="10dp"/>
 
-                        <Button
-                            android:id="@+id/special"
-                            android:layout_width="24dp"
-                            android:layout_height="151dp"
-                            android:background="@drawable/custom_gris"
-                            android:layout_alignParentLeft="true"
-                            android:layout_margin="50dp"
-                            android:layout_centerVertical="true"
-                            android:visibility="invisible"
-                            android:text="Spécial" />
+                    <Button
+                        android:id="@+id/special"
+                        android:layout_width="24dp"
+                        android:layout_height="151dp"
+                        android:background="@drawable/custom_gris"
+                        android:layout_alignParentLeft="true"
+                        android:layout_margin="50dp"
+                        android:layout_centerVertical="true"
+                        android:visibility="invisible"
+                        android:text="Spécial" />
 
                     <ImageView
                         android:id="@+id/coche_expert"
@@ -106,6 +106,38 @@
                         android:background="@drawable/custom_rouge"
                         android:textSize="32dp"
                         android:layout_centerInParent="true" />
+
+                    <ImageView
+                        android:id="@+id/coche_chrono"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_alignRight="@+id/chrono"
+                        android:layout_alignBottom="@+id/chrono"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="4dp"
+                        android:background="@drawable/coche"
+                        android:visibility="invisible"
+                        android:elevation="10dp"/>
+
+                    <Button
+                        android:id="@+id/chrono"
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
+                        android:layout_toRightOf="@+id/expert"
+                        android:background="@drawable/chrono"
+                        android:layout_marginLeft="32dp"
+                        android:textSize="32dp"
+                        android:layout_alignBottom="@+id/difficile"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="CHRONO"
+                        android:textSize="18dp"
+                        android:layout_below="@+id/chrono"
+                        android:layout_alignLeft="@+id/chrono"
+                        android:textColor="@color/white"/>
 
 
                 </RelativeLayout>

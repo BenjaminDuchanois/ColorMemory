@@ -23,6 +23,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.net.FileNameMap;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Jeu extends AppCompatActivity {
 
@@ -34,7 +36,9 @@ public class Jeu extends AppCompatActivity {
 
     //Déclaration de toutes les variables :
     //Les affichages :
-    private TextView points_text, difficulte_text, niveau_text, nbVies_text, scoreFinal, scoreMeilleur;
+    private TextView points_text, difficulte_text, niveau_text, nbVies_text, scoreFinal, scoreMeilleur, chrono_text;
+
+    private Timer chrono;
 
     //La liste à generer :
     private ArrayList<Integer> la_serie = new ArrayList<>();
@@ -43,7 +47,7 @@ public class Jeu extends AppCompatActivity {
     private ArrayList<Button> la_verif = new ArrayList<>();
 
     //Les entiers tels que le niveau ou la difficulté et les constantes engendrées :
-    private Integer nbBloc, niveau, difficulte, nbAppuie_min, nbAppuie_max, nbVies, nbAppuie,
+    private Integer nbBloc, niveau, difficulte, nbAppuie_min, nbAppuie_max, nbVies, nbAppuie, time,
 
     //Les variables de stockage
             index, k, i, j, l;
@@ -60,6 +64,9 @@ public class Jeu extends AppCompatActivity {
 
     //L'object pour la synchronisation :
     private final Object attente = new Object();
+
+    //Pour la fin de partie :
+    private boolean fin;
 
     //Les boutons :
     private Button boutonRouge, boutonBleu, boutonVert, boutonJaune, boutonOrange, boutonRose,
@@ -87,6 +94,9 @@ public class Jeu extends AppCompatActivity {
         boutonStart = findViewById(R.id.start);
         scoreFinal = findViewById(R.id.scoreFinal);
         scoreMeilleur = findViewById(R.id.scoreMeilleur);
+        chrono_text = findViewById(R.id.chronometre);
+
+        time = 1;
 
         //Définition de la police :
         Typeface font = Typeface.createFromAsset(getAssets(), "fonts/edosz.ttf");
@@ -97,6 +107,7 @@ public class Jeu extends AppCompatActivity {
         nbVies_text.setTypeface(font);
         scoreMeilleur.setTypeface(font);
         scoreFinal.setTypeface(font);
+        chrono_text.setTypeface(font);
 
         //Définition des son :
         son_rouge = MediaPlayer.create(this, R.raw.sound81);
@@ -131,7 +142,7 @@ public class Jeu extends AppCompatActivity {
     //A chaque début de niveau :
     public void Base() {
         //Mise à jour de l'affichage du niveau et des vies :
-        nbVies = 2;
+        switchDifficulte();
         if(niveau<8)
         {
             niveau_text.setText("Niveau " + niveau);
@@ -210,13 +221,19 @@ public class Jeu extends AppCompatActivity {
                     }
 
                     //Génère un nouvel appuie aléatoire :
-                    serie_random();
                     nbAppuie++;
+
+                    serie_random();
+
+                    if (difficulte==6)
+                        modeChrono();
 
                     //Rend les boutons cliquables par le joueur :
                     setBoutonsEnable();
 
-                    //Attend que le joueur ai fini de jouer son tour :
+
+
+                    //Autrement attend que le joueur ait fini de jouer son tour :
                     synchronized (attente){
                         while (index == 0) {
                             try {
@@ -225,8 +242,7 @@ public class Jeu extends AppCompatActivity {
                             }
                         }
                     }
-
-                }
+            }
 
                 //Niveau terminé, on passe au suivant !
                 niveau++;
@@ -263,49 +279,128 @@ public class Jeu extends AppCompatActivity {
             }
         }
         else {
-            //Perd une vie :
-            nbVies = nbVies-1;
-            if (nbVies==1)
-                Toast.makeText(getApplicationContext(), "Non ! Vous perdez une vie !", Toast.LENGTH_SHORT).show();
+            erreur();
+        }
 
-            //Si il n'y a plus de vie, le jeu est perdu :
-            if (nbVies==0)
-            {
-                GameOver();
-                return;
+    }
+
+    public void modeChrono()
+    {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                chrono_text.setVisibility(View.VISIBLE);
             }
+        });
+        chrono = new Timer();
+        time = nbAppuie*2;
+        chrono.schedule(new TimerTask() {
 
-            nbVies_text.setText("1 Vie");
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        chrono_text.setText(Integer.toString(time));
+                        if (time == 0)
+                        {
+                            if (la_verif.isEmpty() == false)
+                            {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        chrono_text.setVisibility(View.INVISIBLE);
+                                    }
+                                });
+                                Toast.makeText(getApplicationContext(), "Pas assez rapide ! Vous perdez une vie", Toast.LENGTH_SHORT).show();
+                                erreur();
+                            }
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    chrono_text.setVisibility(View.INVISIBLE);
+                                }
+                            });
+                            cancel();
+                        }
 
+                        if (la_verif.isEmpty())
+                        {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    chrono_text.setVisibility(View.INVISIBLE);
+                                }
+                            });
+                            cancel();
+                        }
+                        time--;
+                    }
+                });
+            }
+        }, 0, 1000);
+    }
 
-            //Refais la série après 1 seconde:
-            new Thread(new Runnable() {
+    public void erreur(){
+        //Perd une vie :
+        nbVies = nbVies-1;
+        if (nbVies>0)
+            runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+                    if (time != 0)
+                        Toast.makeText(getApplicationContext(), "Non ! Vous perdez une vie !", Toast.LENGTH_SHORT).show();
+                }
+            });
+        else //Il n'y a plus de vie la partie est perdue :
+        {
+            GameOver();
+            return;
+        }
 
-                    //Redesactive les boutons
-                    setBoutonsDisable();
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (nbVies == 1)
+                    nbVies_text.setText("1 Vie");
+                else
+                    nbVies_text.setText(nbVies + " Vies");
+            }
+        });
 
+
+
+        //Refais la série après 1 seconde:
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                //Redesactive les boutons
+                setBoutonsDisable();
+
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                }
+                j=1;
+                la_verif.clear();
+                while (j < nbAppuie+1) {
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(500);
                     } catch (InterruptedException e) {
                     }
-                    j=1;
-                    la_verif.clear();
-                    while (j < nbAppuie+1) {
-                        try {
-                            Thread.sleep(500);
-                        } catch (InterruptedException e) {
-                        }
-                                serie_exist();
-                                j++;
-                    }
-                    //Réactive les boutons :
-                    setBoutonsEnable();
+                    serie_exist();
+                    j++;
                 }
-            }).start();
+
+                if (difficulte == 6)
+                    modeChrono();
+
+                //Réactive les boutons :
+                setBoutonsEnable();
+            }
+        }).start();
         }
-    }
 
     //Intialisation du nombre de boutons à appuyer selon la difficulté :
     public void switchDifficulte(){
@@ -315,31 +410,43 @@ public class Jeu extends AppCompatActivity {
                 nbAppuie_min = 1;
                 nbAppuie_max = 7;
                 poid = 1;
+                nbVies = 2;
                 difficulte_text.setText("Mode Facile");
                 break;
             case 2:
                 nbAppuie_min = 3;
                 nbAppuie_max = 10;
                 poid = 1.5;
+                nbVies = 2;
                 difficulte_text.setText("Mode Difficile");
                 break;
             case 3:
                 nbAppuie_min = 4;
                 nbAppuie_max = 12;
                 poid = 2;
+                nbVies = 2;
                 difficulte_text.setText("Mode Expert");
                 break;
             case 4:
                 nbAppuie_min = 1;
                 nbAppuie_max = 1;
                 poid = 0;
+                nbVies = 2;
                 difficulte_text.setText("Mode de test");
                 break;
             case 5:
                 nbAppuie_min = 12;
                 nbAppuie_max = 12;
                 poid = 15;
+                nbVies = 3;
                 difficulte_text.setText("Mode Spécial");
+                break;
+            case 6:
+                nbAppuie_min = 1;
+                nbAppuie_max = 8;
+                poid = 1.5;
+                nbVies = 3;
+                difficulte_text.setText("Mode Chrono");
                 break;
             default:
                 break;
@@ -756,8 +863,14 @@ public class Jeu extends AppCompatActivity {
         InterfaceFin();
 
         //Rend les vues GameOver et TryAgain disponible
-        findViewById(R.id.gameover).setVisibility(View.VISIBLE);
-        findViewById(R.id.tryagain).setVisibility(View.VISIBLE);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                findViewById(R.id.gameover).setVisibility(View.VISIBLE);
+                findViewById(R.id.tryagain).setVisibility(View.VISIBLE);
+            }
+        });
+
     }
 
     //Partie gagnée :
@@ -778,6 +891,11 @@ public class Jeu extends AppCompatActivity {
                 break;
             case 5:
                 scoreUser.child("specomplete").setValue(true);
+                break;
+            case 6:
+                scoreUser.child("chrcomplete").setValue(true);
+                break;
+            default:
                 break;
         }
 
@@ -802,6 +920,8 @@ public class Jeu extends AppCompatActivity {
 
     //Mise en place des boutons et de l'interface de jeu :
     public void InterfaceJeu(){
+
+        fin = false;
         //Réactive les boutons et retire l'interface de fin
         boutonRouge.setVisibility(View.VISIBLE);
         boutonBleu.setVisibility(View.VISIBLE);
@@ -827,28 +947,35 @@ public class Jeu extends AppCompatActivity {
 
     //Retrait des boutons, passage en interface de fin :
     public void InterfaceFin(){
+        fin = true;
         MajScore();
 
         //Désactive tous les boutons pour donner place à un écran de fin
-        boutonStart.setVisibility(View.GONE);
-        boutonRouge.setVisibility(View.GONE);
-        boutonBleu.setVisibility(View.GONE);
-        boutonVert.setVisibility(View.GONE);
-        boutonJaune.setVisibility(View.GONE);
-        boutonOrange.setVisibility(View.GONE);
-        boutonRose.setVisibility(View.GONE);
-        boutonTurquoise.setVisibility(View.GONE);
-        boutonMarron.setVisibility(View.GONE);
-        boutonGris.setVisibility(View.GONE);
-        boutonViolet.setVisibility(View.GONE);
-        points_text.setVisibility(View.GONE);
-        nbVies_text.setVisibility(View.GONE);
-        difficulte_text.setVisibility(View.GONE);
-        niveau_text.setVisibility(View.GONE);
-        findViewById(R.id.menu).setVisibility(View.VISIBLE);
-        scoreMeilleur.setVisibility(View.VISIBLE);
-        scoreFinal.setVisibility(View.VISIBLE);
-        scoreFinal.setText("Score : " + score);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                boutonStart.setVisibility(View.GONE);
+                boutonRouge.setVisibility(View.GONE);
+                boutonBleu.setVisibility(View.GONE);
+                boutonVert.setVisibility(View.GONE);
+                boutonJaune.setVisibility(View.GONE);
+                boutonOrange.setVisibility(View.GONE);
+                boutonRose.setVisibility(View.GONE);
+                boutonTurquoise.setVisibility(View.GONE);
+                boutonMarron.setVisibility(View.GONE);
+                boutonGris.setVisibility(View.GONE);
+                boutonViolet.setVisibility(View.GONE);
+                points_text.setVisibility(View.GONE);
+                nbVies_text.setVisibility(View.GONE);
+                difficulte_text.setVisibility(View.GONE);
+                niveau_text.setVisibility(View.GONE);
+                findViewById(R.id.menu).setVisibility(View.VISIBLE);
+                scoreMeilleur.setVisibility(View.VISIBLE);
+                scoreFinal.setVisibility(View.VISIBLE);
+                scoreFinal.setText("Score : " + score);
+                chrono_text.setVisibility(View.INVISIBLE);
+            }
+        });
     }
 
     //Mise à jour des scores :
@@ -1087,53 +1214,149 @@ public class Jeu extends AppCompatActivity {
     }
 
     //Pression d'un bouton :
-    public void appuie(Button b) {
+    public void appuie(final Button b) {
         switchSon(b);
-        b.setBackgroundResource(R.drawable.custom_blanc);
+        runOnUiThread(new Runnable() {
+                          @Override
+                          public void run() {
+                              b.setBackgroundResource(R.drawable.custom_blanc);
+                          }
+                      }
+        );
+
     }
 
 
     //Retour à sa couleur initiale :
-    public void allume_rouge(Button b) {
-        b.setBackgroundResource(R.drawable.custom_rouge);
+    public void allume_rouge(final Button b) {
+        runOnUiThread(new Runnable() {
+                          @Override
+                          public void run() {
+                              b.setBackgroundResource(R.drawable.custom_rouge);
+                          }
+                      }
+        );
+
     }
 
-    public void allume_bleu(Button b) {
-        b.setBackgroundResource(R.drawable.custom_bleu);
+    public void allume_bleu(final Button b) {
+        runOnUiThread(new Runnable() {
+                          @Override
+                          public void run() {
+                              b.setBackgroundResource(R.drawable.custom_bleu);
+                          }
+                      }
+        );
+
     }
 
-    public void allume_vert(Button b) {
-        b.setBackgroundResource(R.drawable.custom_vert);
+    public void allume_vert(final Button b) {
+        runOnUiThread(new Runnable() {
+                          @Override
+                          public void run() {
+                              b.setBackgroundResource(R.drawable.custom_vert);
+                          }
+                      }
+        );
     }
 
-    public void allume_jaune(Button b) {
-        b.setBackgroundResource(R.drawable.custom_jaune);
+    public void allume_jaune(final Button b) {
+        runOnUiThread(new Runnable() {
+                          @Override
+                          public void run() {
+                              b.setBackgroundResource(R.drawable.custom_jaune);
+                          }
+                      }
+        );
     }
 
-    public void allume_orange(Button b) {
-        b.setBackgroundResource(R.drawable.custom_orange);
+    public void allume_orange(final Button b) {
+        runOnUiThread(new Runnable() {
+                          @Override
+                          public void run() {
+                              b.setBackgroundResource(R.drawable.custom_orange);
+                          }
+                      }
+        );
     }
 
-    public void allume_rose(Button b) {
-        b.setBackgroundResource(R.drawable.custom_rose);
+    public void allume_rose(final Button b) {
+        runOnUiThread(new Runnable() {
+                          @Override
+                          public void run() {
+                              b.setBackgroundResource(R.drawable.custom_rose);
+                          }
+                      }
+        );
     }
 
-    public void allume_turquoise(Button b) {
-        b.setBackgroundResource(R.drawable.custom_turquoise);
+    public void allume_turquoise(final Button b) {
+        runOnUiThread(new Runnable() {
+                          @Override
+                          public void run() {
+                              b.setBackgroundResource(R.drawable.custom_turquoise);
+                          }
+                      }
+        );
     }
 
-    public void allume_marron(Button b) {
-        b.setBackgroundResource(R.drawable.custom_marron);
+    public void allume_marron(final Button b) {
+        runOnUiThread(new Runnable() {
+                          @Override
+                          public void run() {
+                              b.setBackgroundResource(R.drawable.custom_marron);
+                          }
+                      }
+        );
     }
 
-    public void allume_gris(Button b) {
-        b.setBackgroundResource(R.drawable.custom_gris);
+    public void allume_gris(final Button b) {
+        runOnUiThread(new Runnable() {
+                          @Override
+                          public void run() {
+                              b.setBackgroundResource(R.drawable.custom_gris);
+                          }
+                      }
+        );
     }
 
-    public void allume_violet(Button b) {
-        b.setBackgroundResource(R.drawable.custom_violet);
+    public void allume_violet(final Button b) {
+        runOnUiThread(new Runnable() {
+                          @Override
+                          public void run() {
+                              b.setBackgroundResource(R.drawable.custom_violet);
+                          }
+                      }
+        );
     }
 
-
+    @Override
+    protected void onStop() {
+        super.onStop();
+        MajScore();
+        switch ((difficulte))
+        {
+            case 1:
+                scoreUser.child("Facile").setValue(niveau);
+                break;
+            case 2:
+                scoreUser.child("Difficile").setValue(niveau);
+                break;
+            case 3:
+                scoreUser.child("Expert").setValue(niveau);
+                break;
+            case 4:
+                scoreUser.child("Test").setValue(niveau);
+                break;
+            case 5:
+                scoreUser.child("Special").setValue(niveau);
+                break;
+            case 6:
+                scoreUser.child("Chrono").setValue(niveau);
+                break;
+            default:
+                break;
+        }
+    }
 }
 
