@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "106569755895",
+    "firebase_url": "https://datamemory-3c171.firebaseio.com",
+    "project_id": "datamemory-3c171",
+    "storage_bucket": "datamemory-3c171.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:106569755895:android:97380573d3d69b79",
+        "android_client_info": {
+          "package_name": "com.example.colormemory"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "106569755895-e3t4qtc97n4r68k5sms58lg0m7cbfc7k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.colormemory",
+            "certificate_hash": "065a90782b61add488578df03a6bef8400e805bf"
+          }
+        },
+        {
+          "client_id": "106569755895-pv1pvc8m9h7v5m048h3iesefbduqld2b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2nqS9OqWIdZDOsLRVkEO2ZXzqI1NKMY0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "106569755895-pv1pvc8m9h7v5m048h3iesefbduqld2b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

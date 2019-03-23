@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center">
+            <Button
+                android:id="@+id/rouge6"
+                android:layout_width="@dimen/taille_bouton"
+                android:layout_height="@dimen/taille_bouton"
+                android:background="@drawable/custom_rouge"
+                android:layout_margin="5dp"
+                android:onClick="verif"/>
+
+            <Button
+                android:id="@+id/marron6"
+                android:layout_width="@dimen/taille_bouton"
+                android:layout_height="@dimen/taille_bouton"
+                android:background="@drawable/custom_marron"
+                android:layout_margin="5dp"
+                android:onClick="verif"/>
+
+            <Button
+                android:id="@+id/bleu6"
+                android:layout_width="@dimen/taille_bouton"
+                android:layout_height="@dimen/taille_bouton"
+                android:background="@drawable/custom_bleu"
+                android:layout_margin="5dp"
+                android:onClick="verif"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+
+                android:id="@+id/orange6"
+                android:layout_width="@dimen/taille_bouton"
+                android:layout_height="@dimen/taille_bouton"
+                android:background="@drawable/custom_orange"
+                android:layout_margin="5dp"
+                android:onClick="verif"/>
+
+            <Button
+                android:id="@+id/turquoise6"
+                android:layout_width="@dimen/taille_bouton"
+                android:layout_height="@dimen/taille_bouton"
+                android:background="@drawable/custom_turquoise"
+                android:layout_margin="5dp"
+                android:onClick="verif"/>
+
+            <Button
+                android:id="@+id/rose6"
+                android:layout_width="@dimen/taille_bouton"
+                android:layout_height="@dimen/taille_bouton"
+                android:background="@drawable/custom_rose"
+                android:layout_margin="5dp"
+                android:onClick="verif"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center">
+
+            <Button
+                android:id="@+id/vert6"
+                android:layout_width="@dimen/taille_bouton"
+                android:layout_height="@dimen/taille_bouton"
+                android:background="@drawable/custom_vert"
+                android:layout_margin="5dp"
+                android:onClick="verif"/>
+
+            <Button
+                android:id="@+id/gris6"
+                android:layout_width="@dimen/taille_bouton"
+                android:layout_height="@dimen/taille_bouton"
+                android:background="@drawable/custom_gris"
+                android:layout_margin="5dp"
+                android:onClick="verif"/>
+
+            <Button
+                android:id="@+id/jaune6"
+                android:layout_width="@dimen/taille_bouton"
+                android:layout_height="@dimen/taille_bouton"
+                android:background="@drawable/custom_jaune"
+                android:layout_margin="5dp"
+                android:onClick="verif"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

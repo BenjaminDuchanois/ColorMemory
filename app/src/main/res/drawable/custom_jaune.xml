@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <size
+        android:width="@dimen/taille_bouton"
+        android:height="@dimen/taille_bouton"/>
+
+    <solid
+        android:color="#fd0"/>
+
+    <corners
+        android:topRightRadius="10dp"
+        android:bottomLeftRadius="10dp"
+        android:bottomRightRadius="10dp"
+        android:topLeftRadius="10dp"
+        />
+
+    <padding
+        android:bottom="7dp"
+        android:left="7dp"
+        android:right="7dp"
+        android:top="7dp"
+        />
+
+    <stroke
+        android:color="#000"
+        android:width="2dp"
+        />
+</shape>

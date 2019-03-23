@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/color_back"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Jeu"
+    android:background="@drawable/fond">
+
+<RelativeLayout
+    android:id="@+id/relative"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp"
+    android:paddingRight="16dp"
+    android:paddingLeft="16dp">
+
+    <ImageView
+        android:id="@+id/gameover"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
+        android:background="@drawable/ic_gameover"
+        android:visibility="invisible"/>
+
+    <ImageView
+        android:id="@+id/congrats"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
+        android:background="@drawable/congrats"
+        android:visibility="invisible"/>
+
+    <TextView
+        android:id="@+id/scoreFinal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/tryagain"
+        android:text="Score final :"
+        android:textSize="32dp"
+        android:visibility="invisible"/>
+
+    <TextView
+        android:id="@+id/scoreMeilleur"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignTop="@+id/gameover"
+        android:text="Meilleur Score :"
+        android:textSize="40dp"
+        android:layout_margin="16dp"
+        android:visibility="invisible"/>
+
+    <Button
+        android:id="@+id/tryagain"
+        android:layout_width="150dp"
+        android:layout_height="75dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignBottom="@+id/gameover"
+        android:background="@drawable/tryagain"
+        android:visibility="invisible"
+        android:onClick="tryagain"/>
+
+    <Button
+        android:id="@+id/menu"
+        android:layout_width="75dp"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/backmenu"
+        android:visibility="invisible"
+        android:onClick="menu"/>
+
+    <Button
+        android:id="@+id/start"
+        android:layout_width="250dp"
+        android:layout_height="200dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
+        android:background="@drawable/ic_start"
+        android:visibility="gone"
+        android:onClick="Lancer"/>
+
+
+
+    <include
+        layout="@layout/niveau_1"
+        android:id="@+id/vue_niveau1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"/>
+
+    <include
+        layout="@layout/niveau_2"
+        android:id="@+id/vue_niveau2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"/>
+
+    <include
+        layout="@layout/niveau_3"
+        android:id="@+id/vue_niveau3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"/>
+
+    <include
+        layout="@layout/niveau_4"
+        android:id="@+id/vue_niveau4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"/>
+
+    <include
+        layout="@layout/niveau_5"
+        android:id="@+id/vue_niveau5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"/>
+
+    <include
+        layout="@layout/niveau_6"
+        android:id="@+id/vue_niveau6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"/>
+
+    <include
+        layout="@layout/niveau_7"
+        android:id="@+id/vue_niveau7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/textViewPoints"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_margin="16dp"
+        android:text="Points :"
+        android:textSize="25dp"
+        android:visibility="visible"/>
+
+    <TextView
+        android:id="@+id/textViewVies"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="16dp"
+        android:text="Vies :"
+        android:textSize="25dp"
+        android:visibility="visible"/>
+
+    <TextView
+        android:id="@+id/textViewDifficulte"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="16dp"
+        android:text="Difficulté :"
+        android:textSize="32dp"
+        android:visibility="visible" />
+
+    <TextView
+        android:id="@+id/textViewNiveau"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewDifficulte"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="16dp"
+        android:text="Niveau X:"
+        android:textSize="32dp"
+        android:visibility="visible"/>
+
+
+</RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>
