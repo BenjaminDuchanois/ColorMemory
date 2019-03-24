@@ -7,7 +7,9 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.Menu;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -33,18 +35,21 @@ import java.util.concurrent.ExecutionException;
 public class MainActivity extends AppCompatActivity {
 
     private DatabaseReference scoreUser;
+
     private String userID, pseudo;
 
-    private Button btnChangePassword, btnRemoveUser,
-            changePassword, remove, signOut;
-    private TextView email, score;
+    private Button changePassword;
+
+    private TextView email, score, text_chrono;
 
     private ImageView cch_fac, cch_dif, cch_exp, cch_spe, cch_chr;
 
-    private EditText oldEmail, password, newPassword;
+    private EditText newPassword;
     private ProgressBar progressBar;
     private FirebaseAuth auth;
     private Button facile, difficile, expert, special, chrono, test;
+
+    private final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
 
     @Override
@@ -56,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         email = (TextView) findViewById(R.id.useremail);
 
-
         final Intent getPseudo = getIntent();
         pseudo = getPseudo.getStringExtra("Pseudo");
 
@@ -66,9 +70,6 @@ public class MainActivity extends AppCompatActivity {
         }
         score = findViewById(R.id.score);
 
-        //get current user
-        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        setDataToView(user);
 
         authListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -89,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
         test = findViewById(R.id.test);
         special = findViewById(R.id.special);
         chrono = findViewById(R.id.chrono);
+        text_chrono = findViewById(R.id.text_chrono);
         Typeface font = Typeface.createFromAsset(getAssets(), "fonts/edosz.ttf");
         facile.setTypeface(font);
         difficile.setTypeface(font);
@@ -96,6 +98,9 @@ public class MainActivity extends AppCompatActivity {
         test.setTypeface(font);
         special.setTypeface(font);
         chrono.setTypeface(font);
+        text_chrono.setTypeface(font);
+        email.setTypeface(font);
+        score.setTypeface(font);
 
         cch_fac = findViewById(R.id.coche_facile);
         cch_dif = findViewById(R.id.coche_difficile);
@@ -178,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
                     score.setText("Record : " + dataSnapshot.child("bestScore").getValue());
 
                     if (dataSnapshot.child("pseudo").getValue() != null)
-                        email.setText("Connecté en tant que : " + dataSnapshot.child("pseudo").getValue());
+                        email.setText("Pseudo : " + dataSnapshot.child("pseudo").getValue());
 
                     if ((dataSnapshot.child("pseudo").getValue(String.class) == null) && (pseudo != null))
                         scoreUser.child("pseudo").setValue(pseudo);
@@ -230,49 +235,20 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
-        btnChangePassword = (Button) findViewById(R.id.change_password_button);
-
-        btnRemoveUser = (Button) findViewById(R.id.remove_user_button);
-
         changePassword = (Button) findViewById(R.id.changePass);
 
-        remove = (Button) findViewById(R.id.remove);
-        signOut = (Button) findViewById(R.id.sign_out);
-
-        oldEmail = (EditText) findViewById(R.id.old_email);
-
-        password = (EditText) findViewById(R.id.password);
         newPassword = (EditText) findViewById(R.id.newPassword);
 
-        oldEmail.setVisibility(View.GONE);
-
-        password.setVisibility(View.GONE);
         newPassword.setVisibility(View.GONE);
 
         changePassword.setVisibility(View.GONE);
 
-        remove.setVisibility(View.GONE);
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         if (progressBar != null) {
             progressBar.setVisibility(View.GONE);
         }
-
-
-        btnChangePassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                oldEmail.setVisibility(View.GONE);
-
-                password.setVisibility(View.GONE);
-                newPassword.setVisibility(View.VISIBLE);
-
-                changePassword.setVisibility(View.VISIBLE);
-
-                remove.setVisibility(View.GONE);
-            }
-        });
 
         changePassword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -305,48 +281,54 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-        btnRemoveUser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                progressBar.setVisibility(View.VISIBLE);
-                if (user != null) {
-                    if (scoreUser != null)
-                        scoreUser.removeValue();
-                    user.delete()
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        Toast.makeText(MainActivity.this, "Votre profil a été supprimé.", Toast.LENGTH_SHORT).show();
-                                        startActivity(new Intent(MainActivity.this, SignupActivity.class));
-                                        finish();
-                                        progressBar.setVisibility(View.GONE);
-                                    } else {
-                                        Toast.makeText(MainActivity.this, "Votre profil n'a pas pu être supprimé !", Toast.LENGTH_SHORT).show();
-                                        progressBar.setVisibility(View.GONE);
-                                    }
-                                }
-                            });
-                }
-            }
-        });
-
-        signOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signOut();
-            }
-        });
-
     }
 
-    @SuppressLint("SetTextI18n")
-    private void setDataToView(FirebaseUser user) {
-        try {
-            email.setText("Connecté en temps que : " + user.getEmail());
-        } catch (Throwable e){
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.deconnexion)
+        {
+            signOut();
         }
+        else if (item.getItemId() == R.id.suppression)
+        {
+            progressBar.setVisibility(View.VISIBLE);
+            if (user != null) {
+                if (scoreUser != null)
+                    scoreUser.removeValue();
+                user.delete()
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(MainActivity.this, "Votre profil a été supprimé.", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(MainActivity.this, SignupActivity.class));
+                                    finish();
+                                    progressBar.setVisibility(View.GONE);
+                                } else {
+                                    Toast.makeText(MainActivity.this, "Votre profil n'a pas pu être supprimé !", Toast.LENGTH_SHORT).show();
+                                    progressBar.setVisibility(View.GONE);
+                                }
+                            }
+                        });
+            }
+        }
+        else if (item.getItemId() == R.id.change_mdp)
+        {
+            newPassword.setVisibility(View.VISIBLE);
+            changePassword.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            return super.onOptionsItemSelected(item);
+        }
+        return true;
     }
 
 

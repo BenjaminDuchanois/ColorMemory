@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/deconnexion"
+        android:title="Deconnexion"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/suppression"
+        android:title="Supprimer le compte"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/change_mdp"
+        android:title="Changer le mot de passe"
+        app:showAsAction="never"/>
+
+</menu>
