@@ -28,6 +28,8 @@ Le mode test n'est disponible que pour le compte administrateur;
 
 Connexion sur Firebase avec adresse mail aux normes, pseudo et mot de passe de plus de 6 caractères;
 
+Le changement de mot de passe n'est possible que si l'on s'est authentifié durant cette session;
+
 Meilleur score personnel visible pour chaque joueur;
 
 Sauvegarde du niveau en cours, même si l'appli est fermée brusquement;
