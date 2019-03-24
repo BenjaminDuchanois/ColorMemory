@@ -74,8 +74,7 @@
                 android:text="Pseudo"
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
-                android:layout_toRightOf="@+id/joueurscore"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="105dp"
                 android:layout_alignParentTop="true"
                 android:translationY="12dp"/>
 
@@ -84,9 +83,8 @@
                 android:text="Mail"
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
-                android:layout_toRightOf="@+id/joueurscore"
                 android:layout_alignParentBottom="true"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="105dp"
                 android:translationY="-12dp"/>
 
         </RelativeLayout>

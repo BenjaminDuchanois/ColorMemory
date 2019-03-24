@@ -192,7 +192,8 @@ public class MainActivity extends AppCompatActivity {
                         scoreUser.child("mail").setValue(user.getEmail());
 
                     if (dataSnapshot.child("bestScore").getValue(double.class) == null)
-                        scoreUser.child("bestScore").setValue(0);
+                    {scoreUser.child("bestScore").setValue(0);
+                    scoreUser.child("bestScoreNeg").setValue(0);}
 
                     if (dataSnapshot.child("testmode").getValue(boolean.class) != null)
                         test.setVisibility(View.VISIBLE);

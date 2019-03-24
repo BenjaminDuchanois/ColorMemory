@@ -42,6 +42,8 @@ public class Jeu extends AppCompatActivity {
 
     private Timer chrono;
 
+    private boolean chrono_erreur;
+
     //La liste à generer :
     private ArrayList<Integer> la_serie = new ArrayList<>();
 
@@ -339,7 +341,7 @@ public class Jeu extends AppCompatActivity {
                             cancel();
                         }
 
-                        if (la_verif.isEmpty())
+                        if (la_verif.isEmpty() || chrono_erreur)
                         {
                             runOnUiThread(new Runnable() {
                                 @Override
@@ -384,6 +386,9 @@ public class Jeu extends AppCompatActivity {
             }
         });
 
+        //Si mode chrono, lui indique qu'une erreur a été faite :
+        if (difficulte==6)
+            chrono_erreur = true;
 
 
         //Refais la série après 1 seconde:
@@ -409,8 +414,10 @@ public class Jeu extends AppCompatActivity {
                     j++;
                 }
 
-                if (difficulte == 6)
+                if (difficulte == 6) {
+                    chrono_erreur = false;
                     modeChrono();
+                }
 
                 //Réactive les boutons :
                 setBoutonsEnable();
@@ -1438,6 +1445,7 @@ public class Jeu extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         MajScore();
+        chrono_erreur = true;
         switch ((difficulte))
         {
             case 1:

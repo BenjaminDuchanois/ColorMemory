@@ -1,4 +1,4 @@
-package com.example.colormemory.AccountActivity;
+package com.example.colormemory;
 
 public class Joueur {
     String joueurID;
