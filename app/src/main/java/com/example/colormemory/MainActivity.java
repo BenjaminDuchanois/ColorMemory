@@ -369,6 +369,11 @@ public class MainActivity extends AppCompatActivity {
         };
     }
 
+    public void HighScore(View view){
+        Intent score = new Intent(MainActivity.this, HightScore.class);
+        startActivity(score);
+    }
+
     @Override
     protected void onResume() {
         super.onResume();

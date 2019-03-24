@@ -19,6 +19,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -90,6 +91,7 @@ public class Jeu extends AppCompatActivity {
         scoreUser = FirebaseDatabase.getInstance().getReference().child("ID").child(userID);
 
         chargerPartie();
+
 
         //Récupère l'ID des affichages et de start :
         difficulte_text = findViewById(R.id.textViewDifficulte);
@@ -238,6 +240,7 @@ public class Jeu extends AppCompatActivity {
 
                     serie_random();
 
+                    //Si mode chrono, lance le chronomètre :
                     if (difficulte==6)
                         modeChrono();
 
@@ -246,7 +249,7 @@ public class Jeu extends AppCompatActivity {
 
 
 
-                    //Autrement attend que le joueur ait fini de jouer son tour :
+                    //Attend que le joueur ait fini de jouer son tour :
                     synchronized (attente){
                         while (index == 0) {
                             try {
@@ -1005,11 +1008,13 @@ public class Jeu extends AppCompatActivity {
                     double myBestScore = dataSnapshot.child("bestScore").getValue(double.class);
                     scoreMeilleur.setText("Record : " + dataSnapshot.child("bestScore").getValue());
 
-                    if (score>myBestScore)
+                    if (score>myBestScore) {
                         scoreUser.child("bestScore").setValue(score);
+                        scoreUser.child("bestScoreNeg").setValue(0-score);}
                 }
                 else {
                     scoreUser.child("bestScore").setValue(score);
+                    scoreUser.child("bestScoreNeg").setValue(0-score);
                 }
 
             }
