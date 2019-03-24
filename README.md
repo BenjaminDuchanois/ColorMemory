@@ -4,7 +4,7 @@ Mode Facile, Difficile, Expert;
 
 Mode Test et mode Spécial (Pour les test et un bonus);
 
-Mode Chrono;
+Mode Chrono (2sec + 1sec par appuie);
 
 
 Niveaux : 7;
@@ -13,6 +13,8 @@ Boutons : 10;
 Sons propres à chaque bouton quand ils sont préssés;
 
 Impossible d'appuyer sur les boutons pendant la séquence;
+
+Animation de transition selon le mode;
 
 Ecran de fin pour les victoires et pour les défaites;
 
