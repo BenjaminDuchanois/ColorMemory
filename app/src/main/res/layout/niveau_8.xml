@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:weightSum="4">
+            <Button
+                android:id="@+id/rouge8"
+                android:layout_width="@dimen/taille_bouton"
+                android:layout_height="@dimen/taille_bouton"
+                android:layout_weight="1"
+                android:background="@drawable/custom_rouge"
+                android:layout_margin="5dp"
+                android:onClick="verif"/>
+
+            <Button
+                android:id="@+id/marron8"
+                android:layout_width="@dimen/taille_bouton"
+                android:layout_height="@dimen/taille_bouton"
+                android:layout_weight="1"
+                android:background="@drawable/custom_marron"
+                android:layout_margin="5dp"
+                android:onClick="verif"/>
+
+            <Button
+                android:id="@+id/bleu8"
+                android:layout_width="@dimen/taille_bouton"
+                android:layout_height="@dimen/taille_bouton"
+                android:layout_weight="1"
+                android:background="@drawable/custom_bleu"
+                android:layout_margin="5dp"
+                android:onClick="verif"/>
+
+            <Button
+                android:id="@+id/vertfonce8"
+                android:layout_width="@dimen/taille_bouton"
+                android:layout_height="@dimen/taille_bouton"
+                android:layout_weight="1"
+                android:background="@drawable/custom_vertfonce"
+                android:layout_margin="5dp"
+                android:onClick="verif"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="4">
+
+            <Button
+
+                android:id="@+id/orange8"
+                android:layout_width="@dimen/taille_bouton"
+                android:layout_height="@dimen/taille_bouton"
+                android:layout_weight="1"
+                android:background="@drawable/custom_orange"
+                android:layout_margin="5dp"
+                android:onClick="verif"/>
+
+            <Button
+                android:id="@+id/violet8"
+                android:layout_width="@dimen/taille_bouton"
+                android:layout_height="@dimen/taille_bouton"
+                android:layout_weight="1"
+                android:background="@drawable/custom_violet"
+                android:layout_margin="5dp"
+                android:onClick="verif"/>
+
+            <Button
+                android:id="@+id/turquoise8"
+                android:layout_width="@dimen/taille_bouton"
+                android:layout_height="@dimen/taille_bouton"
+                android:layout_weight="1"
+                android:background="@drawable/custom_turquoise"
+                android:layout_margin="5dp"
+                android:onClick="verif"/>
+
+            <Button
+                android:id="@+id/rose8"
+                android:layout_width="@dimen/taille_bouton"
+                android:layout_height="@dimen/taille_bouton"
+                android:layout_weight="1"
+                android:background="@drawable/custom_rose"
+                android:layout_margin="5dp"
+                android:onClick="verif"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center">
+
+            <Button
+                android:id="@+id/vert8"
+                android:layout_width="@dimen/taille_bouton"
+                android:layout_height="@dimen/taille_bouton"
+                android:background="@drawable/custom_vert"
+                android:layout_margin="5dp"
+                android:onClick="verif"/>
+
+            <Button
+                android:id="@+id/gris8"
+                android:layout_width="@dimen/taille_bouton"
+                android:layout_height="@dimen/taille_bouton"
+                android:background="@drawable/custom_gris"
+                android:layout_margin="5dp"
+                android:onClick="verif"/>
+
+            <Button
+                android:id="@+id/jaune8"
+                android:layout_width="@dimen/taille_bouton"
+                android:layout_height="@dimen/taille_bouton"
+                android:background="@drawable/custom_jaune"
+                android:layout_margin="5dp"
+                android:onClick="verif"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

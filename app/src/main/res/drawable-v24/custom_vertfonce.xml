@@ -7,13 +7,13 @@
         android:height="@dimen/taille_bouton"/>
 
     <solid
-        android:color="#f00"/>
+        android:color="#053"/>
 
     <corners
         android:topRightRadius="10dp"
         android:bottomLeftRadius="10dp"
         android:bottomRightRadius="10dp"
-        android:topLeftRadius="100dp"
+        android:topLeftRadius="10dp"
         />
 
     <padding

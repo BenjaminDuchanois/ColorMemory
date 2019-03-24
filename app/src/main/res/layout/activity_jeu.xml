@@ -151,6 +151,24 @@
         android:layout_centerHorizontal="true"
         android:visibility="gone"/>
 
+    <include
+        layout="@layout/niveau_8"
+        android:id="@+id/vue_niveau8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"/>
+
+    <include
+        layout="@layout/niveau_9"
+        android:id="@+id/vue_niveau9"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"/>
+
     <TextView
         android:id="@+id/textViewPoints"
         android:layout_width="wrap_content"

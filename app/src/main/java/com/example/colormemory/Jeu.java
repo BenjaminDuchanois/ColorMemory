@@ -64,7 +64,7 @@ public class Jeu extends AppCompatActivity {
 
     //Les sons :
     private MediaPlayer son_rouge, son_bleu, son_vert, son_jaune, son_orange, son_rose,
-            son_turquoise, son_marron, son_gris, son_violet;
+            son_turquoise, son_marron, son_gris, son_violet, son_vertf, son_noir;
 
     //L'object pour la synchronisation :
     private final Object attente = new Object();
@@ -72,8 +72,8 @@ public class Jeu extends AppCompatActivity {
 
     //Les boutons :
     private Button boutonRouge, boutonBleu, boutonVert, boutonJaune, boutonOrange, boutonRose,
-            boutonTurquoise, boutonMarron, boutonGris, boutonViolet, boutonStart,
-            chargerniveau, reprendreniveau;
+            boutonTurquoise, boutonMarron, boutonGris, boutonViolet, boutonNoir, boutonVertF,
+            boutonStart, chargerniveau, reprendreniveau;
 
     //L'aléatoire :
     private Random alea = new Random();
@@ -125,16 +125,18 @@ public class Jeu extends AppCompatActivity {
         reprendreniveau.setTypeface(font);
 
         //Définition des son :
-        son_rouge = MediaPlayer.create(this, R.raw.sound81);
-        son_bleu = MediaPlayer.create(this, R.raw.sound85);
-        son_vert = MediaPlayer.create(this, R.raw.sound90);
-        son_jaune = MediaPlayer.create(this, R.raw.sound92);
-        son_orange = MediaPlayer.create(this, R.raw.sound93);
-        son_rose = MediaPlayer.create(this, R.raw.sound96);
-        son_turquoise = MediaPlayer.create(this, R.raw.sound97);
-        son_marron = MediaPlayer.create(this, R.raw.sound99);
-        son_gris = MediaPlayer.create(this, R.raw.sound100);
-        son_violet = MediaPlayer.create(this, R.raw.sound110);
+        son_rouge = MediaPlayer.create(this, R.raw.rouge);
+        son_bleu = MediaPlayer.create(this, R.raw.bleu);
+        son_vert = MediaPlayer.create(this, R.raw.vert);
+        son_jaune = MediaPlayer.create(this, R.raw.jaune);
+        son_orange = MediaPlayer.create(this, R.raw.orange);
+        son_rose = MediaPlayer.create(this, R.raw.rose);
+        son_turquoise = MediaPlayer.create(this, R.raw.turquoise);
+        son_marron = MediaPlayer.create(this, R.raw.marron);
+        son_gris = MediaPlayer.create(this, R.raw.gris);
+        son_violet = MediaPlayer.create(this, R.raw.violet);
+        son_vertf = MediaPlayer.create(this, R.raw.vertf);
+        son_noir = MediaPlayer.create(this,R.raw.noir);
 
         //Initialisation du niveau à 1 à la création :
         niveau = 1;
@@ -158,7 +160,7 @@ public class Jeu extends AppCompatActivity {
     public void Base() {
         //Mise à jour de l'affichage du niveau et des vies :
         switchDifficulte();
-        if(niveau<8)
+        if(niveau<10)
         {
             niveau_text.setText("Niveau " + niveau);
             nbVies_text.setText(nbVies + " Vies");
@@ -506,6 +508,14 @@ public class Jeu extends AppCompatActivity {
                 findViewById(R.id.vue_niveau6).setVisibility(View.GONE);
                 findViewById(R.id.vue_niveau7).setVisibility(View.VISIBLE);
                 break;
+            case 8:
+                findViewById(R.id.vue_niveau7).setVisibility(View.GONE);
+                findViewById(R.id.vue_niveau8).setVisibility(View.VISIBLE);
+                break;
+            case 9:
+                findViewById(R.id.vue_niveau8).setVisibility(View.GONE);
+                findViewById(R.id.vue_niveau9).setVisibility(View.VISIBLE);
+                break;
             default:
                 break;
         }
@@ -513,16 +523,18 @@ public class Jeu extends AppCompatActivity {
 
     //Déclaration des boutons (sera écrasé) :
     public void initialiseBoutons(){
-        boutonRouge = findViewById(R.id.rouge7);
-        boutonBleu = findViewById(R.id.bleu7);
-        boutonVert = findViewById(R.id.vert7);
-        boutonJaune = findViewById(R.id.jaune7);
-        boutonOrange = findViewById(R.id.orange7);
-        boutonRose = findViewById(R.id.orange7);
-        boutonTurquoise = findViewById(R.id.turquoise7);
-        boutonMarron = findViewById(R.id.marron7);
-        boutonGris = findViewById(R.id.gris7);
-        boutonViolet = findViewById(R.id.violet7);
+        boutonRouge = findViewById(R.id.rouge9);
+        boutonBleu = findViewById(R.id.bleu9);
+        boutonVert = findViewById(R.id.vert9);
+        boutonJaune = findViewById(R.id.jaune9);
+        boutonOrange = findViewById(R.id.orange9);
+        boutonRose = findViewById(R.id.rose9);
+        boutonTurquoise = findViewById(R.id.turquoise9);
+        boutonMarron = findViewById(R.id.marron9);
+        boutonGris = findViewById(R.id.gris9);
+        boutonViolet = findViewById(R.id.violet9);
+        boutonVertF = findViewById(R.id.vertfonce9);
+        boutonNoir = findViewById(R.id.noir9);
     }
 
     //Changement des ID selon le niveau :
@@ -591,6 +603,33 @@ public class Jeu extends AppCompatActivity {
                 boutonGris = findViewById(R.id.gris7);
                 boutonViolet = findViewById(R.id.violet7);
                 break;
+            case 8:
+                boutonRouge = findViewById(R.id.rouge8);
+                boutonBleu = findViewById(R.id.bleu8);
+                boutonVert = findViewById(R.id.vert8);
+                boutonJaune = findViewById(R.id.jaune8);
+                boutonOrange = findViewById(R.id.orange8);
+                boutonRose = findViewById(R.id.rose8);
+                boutonTurquoise = findViewById(R.id.turquoise8);
+                boutonMarron = findViewById(R.id.marron8);
+                boutonGris = findViewById(R.id.gris8);
+                boutonViolet = findViewById(R.id.violet8);
+                boutonVertF = findViewById(R.id.vertfonce8);
+                break;
+            case 9:
+                boutonRouge = findViewById(R.id.rouge9);
+                boutonBleu = findViewById(R.id.bleu9);
+                boutonVert = findViewById(R.id.vert9);
+                boutonJaune = findViewById(R.id.jaune9);
+                boutonOrange = findViewById(R.id.orange9);
+                boutonRose = findViewById(R.id.rose9);
+                boutonTurquoise = findViewById(R.id.turquoise9);
+                boutonMarron = findViewById(R.id.marron9);
+                boutonGris = findViewById(R.id.gris9);
+                boutonViolet = findViewById(R.id.violet9);
+                boutonVertF = findViewById(R.id.vertfonce9);
+                boutonNoir = findViewById(R.id.noir9);
+                break;
             default:
                 break;
         }
@@ -608,6 +647,8 @@ public class Jeu extends AppCompatActivity {
         boutonMarron.setClickable(false);
         boutonGris.setClickable(false);
         boutonViolet.setClickable(false);
+        boutonVertF.setClickable(false);
+        boutonNoir.setClickable(false);
     }
 
     //Rend les boutons de nouveau disponibles :
@@ -622,6 +663,8 @@ public class Jeu extends AppCompatActivity {
         boutonMarron.setClickable(true);
         boutonGris.setClickable(true);
         boutonViolet.setClickable(true);
+        boutonVertF.setClickable(true);
+        boutonNoir.setClickable(true);
     }
 
     //Répète la série existante :
@@ -739,6 +782,28 @@ public class Jeu extends AppCompatActivity {
                 }
                 allume_violet(boutonViolet);
                 la_verif.add(boutonViolet);
+                break;
+
+            case 10:
+                appuie(boutonVertF);
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+
+                }
+                allume_vertf(boutonVertF);
+                la_verif.add(boutonVertF);
+                break;
+
+            case 11:
+                appuie(boutonNoir);
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+
+                }
+                allume_noir(boutonNoir);
+                la_verif.add(boutonNoir);
                 break;
 
             default:
@@ -876,6 +941,30 @@ public class Jeu extends AppCompatActivity {
                 la_verif.add(boutonViolet);
                 break;
 
+            case 10:
+                appuie(boutonVertF);
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+
+                }
+                allume_vertf(boutonVertF);
+                la_serie.add(10);
+                la_verif.add(boutonVertF);
+                break;
+
+            case 11:
+                appuie(boutonNoir);
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+
+                }
+                allume_noir(boutonNoir);
+                la_serie.add(11);
+                la_verif.add(boutonNoir);
+                break;
+
             default:
                 break;
         }
@@ -955,6 +1044,8 @@ public class Jeu extends AppCompatActivity {
         boutonMarron.setVisibility(View.VISIBLE);
         boutonGris.setVisibility(View.VISIBLE);
         boutonViolet.setVisibility(View.VISIBLE);
+        boutonVertF.setVisibility(View.VISIBLE);
+        boutonNoir.setVisibility(View.VISIBLE);
         scoreMeilleur.setVisibility(View.INVISIBLE);
         scoreFinal.setVisibility(View.INVISIBLE);
         points_text.setVisibility(View.VISIBLE);
@@ -991,6 +1082,8 @@ public class Jeu extends AppCompatActivity {
                 boutonMarron.setVisibility(View.GONE);
                 boutonGris.setVisibility(View.GONE);
                 boutonViolet.setVisibility(View.GONE);
+                boutonVertF.setVisibility(View.GONE);
+                boutonNoir.setVisibility(View.GONE);
                 points_text.setVisibility(View.GONE);
                 nbVies_text.setVisibility(View.GONE);
                 difficulte_text.setVisibility(View.GONE);
@@ -1230,6 +1323,98 @@ public class Jeu extends AppCompatActivity {
                 son_violet.start();
                 break;
 
+            case R.id.rouge8:
+                son_rouge.start();
+                break;
+
+            case R.id.rouge9:
+                son_rouge.start();
+                break;
+
+            case R.id.bleu8:
+                son_bleu.start();
+                break;
+
+            case R.id.bleu9:
+                son_bleu.start();
+                break;
+
+            case R.id.vert8:
+                son_vert.start();
+                break;
+
+            case R.id.vert9:
+                son_vert.start();
+                break;
+
+            case R.id.jaune8:
+                son_jaune.start();
+                break;
+
+            case R.id.jaune9:
+                son_jaune.start();
+                break;
+
+            case R.id.orange8:
+                son_orange.start();
+                break;
+
+            case R.id.orange9:
+                son_orange.start();
+                break;
+
+            case R.id.rose8:
+                son_rose.start();
+                break;
+
+            case R.id.rose9:
+                son_rose.start();
+                break;
+
+            case R.id.turquoise8:
+                son_turquoise.start();
+                break;
+
+            case R.id.turquoise9:
+                son_turquoise.start();
+                break;
+
+            case R.id.marron8:
+                son_marron.start();
+                break;
+
+            case R.id.marron9:
+                son_marron.start();
+                break;
+
+            case R.id.gris8:
+                son_gris.start();
+                break;
+
+            case R.id.gris9:
+                son_gris.start();
+                break;
+
+            case R.id.violet8:
+                son_violet.start();
+                break;
+
+            case R.id.violet9:
+                son_violet.start();
+                break;
+
+            case R.id.vertfonce8:
+                son_vertf.start();
+                break;
+
+            case R.id.vertfonce9:
+                son_vertf.start();
+                break;
+
+            case R.id.noir9:
+                son_noir.start();
+                break;
+
             default:
                 break;
         }
@@ -1436,6 +1621,26 @@ public class Jeu extends AppCompatActivity {
                           @Override
                           public void run() {
                               b.setBackgroundResource(R.drawable.custom_violet);
+                          }
+                      }
+        );
+    }
+
+    public void allume_vertf(final Button b) {
+        runOnUiThread(new Runnable() {
+                          @Override
+                          public void run() {
+                              b.setBackgroundResource(R.drawable.custom_vertfonce);
+                          }
+                      }
+        );
+    }
+
+    public void allume_noir(final Button b) {
+        runOnUiThread(new Runnable() {
+                          @Override
+                          public void run() {
+                              b.setBackgroundResource(R.drawable.custom_noir);
                           }
                       }
         );
