@@ -1238,27 +1238,27 @@ public class Jeu extends AppCompatActivity {
                                 InterfaceChargement(dataSnapshot.child("Facile").getValue(Integer.class));
                         break;
                     case 2:
-                        if (dataSnapshot.child("Facile").getValue(Integer.class) != null)
+                        if (dataSnapshot.child("Difficile").getValue(Integer.class) != null)
                             if (dataSnapshot.child("Difficile").getValue(Integer.class) > 1)
                                 InterfaceChargement(dataSnapshot.child("Difficile").getValue(Integer.class));
                         break;
                     case 3:
-                        if (dataSnapshot.child("Facile").getValue(Integer.class) != null)
+                        if (dataSnapshot.child("Expert").getValue(Integer.class) != null)
                             if (dataSnapshot.child("Expert").getValue(Integer.class) > 1)
                                 InterfaceChargement(dataSnapshot.child("Expert").getValue(Integer.class));
                         break;
                     case 4:
-                        if (dataSnapshot.child("Facile").getValue(Integer.class) != null)
+                        if (dataSnapshot.child("Test").getValue(Integer.class) != null)
                             if (dataSnapshot.child("Test").getValue(Integer.class) > 1)
                                 InterfaceChargement(dataSnapshot.child("Test").getValue(Integer.class));
                         break;
                     case 5:
-                        if (dataSnapshot.child("Facile").getValue(Integer.class) != null)
+                        if (dataSnapshot.child("Special").getValue(Integer.class) != null)
                             if (dataSnapshot.child("Special").getValue(Integer.class) > 1)
                                 InterfaceChargement(dataSnapshot.child("Special").getValue(Integer.class));
                         break;
                     case 6:
-                        if (dataSnapshot.child("Facile").getValue(Integer.class) != null)
+                        if (dataSnapshot.child("Chrono").getValue(Integer.class) != null)
                             if (dataSnapshot.child("Chrono").getValue(Integer.class) > 1)
                                 InterfaceChargement(    dataSnapshot.child("Chrono").getValue(Integer.class));
                         break;
