@@ -44,7 +44,4 @@ Mise à jour des design et utilisation d'un menu pour les options (Progress barr
 
 Corrections des derniers bug, normalement tout est bon;
 
-
-
-
-Reste à faire : Tableau des scores.
+Tableau des scores.
