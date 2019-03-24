@@ -45,6 +45,8 @@ public class HightScore extends AppCompatActivity {
         dataJoueur = FirebaseDatabase.getInstance().getReference("ID");
         listJoueur = new ArrayList<>();
 
+        //Selectionne tous les joueurs puis les tri par score croissant (Mis en négatif pour inverser le tri)
+        //Ne garde que les 10 plus grands scores
         Query query = FirebaseDatabase.getInstance().getReference("ID")
                 .orderByChild("bestScoreNeg")
                 .limitToFirst(10);
@@ -59,6 +61,7 @@ public class HightScore extends AppCompatActivity {
 
             listJoueur.clear();
 
+            //Récupère les ID, pseudo, mail et Score des joueurs pour en faire une liste
             for (DataSnapshot joueurSnap : dataSnapshot.getChildren()){
                 String idJoueur = joueurSnap.child("ID").getValue(String.class);
                 String nomJoueur = joueurSnap.child("pseudo").getValue(String.class);
@@ -70,6 +73,7 @@ public class HightScore extends AppCompatActivity {
                 listJoueur.add(joueur);
             }
 
+            //Affiche la liste
             JoueurList adapter = new JoueurList(HightScore.this, listJoueur);
             listViewJoueur.setAdapter(adapter);
 
@@ -80,39 +84,4 @@ public class HightScore extends AppCompatActivity {
 
         }
     };
-
-
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        /*dataJoueur.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                listJoueur.clear();
-
-                for (DataSnapshot joueurSnap : dataSnapshot.getChildren()){
-                    String idJoueur = joueurSnap.child("ID").getValue(String.class);
-                    String nomJoueur = joueurSnap.child("pseudo").getValue(String.class);
-                    String mailJoueur = joueurSnap.child("mail").getValue(String.class);
-                    double scoreJoueur = joueurSnap.child("bestScore").getValue(double.class);
-
-                    Joueur joueur = new Joueur(idJoueur, nomJoueur, mailJoueur, scoreJoueur);
-
-                    listJoueur.add(joueur);
-                }
-
-                JoueurList adapter = new JoueurList(HightScore.this, listJoueur);
-                listViewJoueur.setAdapter(adapter);
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        }); */
-    }
 }

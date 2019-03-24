@@ -14,7 +14,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".HightScore"></activity>
-        <activity android:name=".Lancement" />
         <activity android:name=".AccountActivity.SignupActivity" />
         <activity android:name=".AccountActivity.ResetPasswordActivity" />
         <activity android:name=".AccountActivity.LoginActivity" />

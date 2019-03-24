@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+//Liste des joueurs
 public class JoueurList extends ArrayAdapter<Joueur> {
 
     private Activity context;
@@ -43,6 +44,7 @@ public class JoueurList extends ArrayAdapter<Joueur> {
         textMail.setText(joueur.getMail());
         textScore.setText(Double.toString(joueur.getBestScore()));
 
+        //Si le joueur est dans le top 3, lui donne un rang spécial avec une médaille.
         if(position>2)
         {
             textRang.setVisibility(View.VISIBLE);

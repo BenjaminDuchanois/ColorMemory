@@ -1646,6 +1646,7 @@ public class Jeu extends AppCompatActivity {
         );
     }
 
+    //Sauvegarde le niveau au moment où l'activité est quitté
     @Override
     protected void onStop() {
         super.onStop();

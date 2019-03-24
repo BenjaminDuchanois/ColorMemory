@@ -1,5 +1,6 @@
 package com.example.colormemory;
 
+//Class Joueur pour l'affichage dans les HighScores
 public class Joueur {
     String joueurID;
     String pseudo;
