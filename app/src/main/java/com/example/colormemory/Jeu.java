@@ -67,8 +67,6 @@ public class Jeu extends AppCompatActivity {
     //L'object pour la synchronisation :
     private final Object attente = new Object();
 
-    //Pour la fin de partie :
-    private boolean fin;
 
     //Les boutons :
     private Button boutonRouge, boutonBleu, boutonVert, boutonJaune, boutonOrange, boutonRose,

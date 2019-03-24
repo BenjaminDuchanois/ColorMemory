@@ -1,9 +1,9 @@
 package com.example.colormemory;
 
+import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -24,12 +24,24 @@ public class HightScore extends AppCompatActivity {
     private DatabaseReference dataJoueur;
     private ListView listViewJoueur;
     private List<Joueur> listJoueur;
+    private TextView _rang, _score, _pseudo, _mail;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hight_score);
+
+        _rang = findViewById(R.id.highscorerang);
+        _score = findViewById(R.id.highscorescore);
+        _pseudo = findViewById(R.id.highscorepseudo);
+        _mail = findViewById(R.id.highscoremail);
+        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/edosz.ttf");
+        _rang.setTypeface(font);
+        _score.setTypeface(font);
+        _pseudo.setTypeface(font);
+        _mail.setTypeface(font);
+
 
         listViewJoueur = (ListView) findViewById(R.id.listScore);
         dataJoueur = FirebaseDatabase.getInstance().getReference("ID");

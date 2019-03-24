@@ -11,10 +11,67 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <RelativeLayout
+            android:id="@+id/highscoreentete"
+            android:layout_width="match_parent"
+            android:layout_height="80dp">
+
+            <TextView
+                android:id="@+id/highscorerang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rang"
+                android:textSize="20dp"
+                android:layout_centerVertical="true"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/highscorescore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Score"
+                android:layout_toRightOf="@+id/highscorerang"
+                android:layout_marginLeft="28dp"
+                android:textSize="20dp"
+                android:layout_centerVertical="true"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/highscorepseudo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pseudo"
+                android:layout_toRightOf="@+id/highscorescore"
+                android:layout_marginLeft="50dp"
+                android:layout_alignParentTop="true"
+                android:translationY="12dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/highscoremail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mail"
+                android:layout_toRightOf="@+id/highscorescore"
+                android:layout_marginLeft="50dp"
+                android:layout_alignParentBottom="true"
+                android:translationY="-12dp"
+                android:textStyle="bold"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:layout_alignParentBottom="true"
+                android:background="#006"/>
+
+
+        </RelativeLayout>
+
         <ListView
             android:id="@+id/listScore"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@+id/highscoreentete"
             android:text="Test"/>
 
     </RelativeLayout>
