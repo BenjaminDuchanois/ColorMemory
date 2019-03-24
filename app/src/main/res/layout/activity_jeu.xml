@@ -19,8 +19,8 @@
 
     <ImageView
         android:id="@+id/gameover"
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_width="200dp"
+        android:layout_height="150dp"
         android:layout_centerHorizontal="true"
         android:layout_centerInParent="true"
         android:background="@drawable/ic_gameover"
@@ -39,8 +39,8 @@
         android:id="@+id/scoreFinal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/tryagain"
+        android:layout_centerInParent="true"
+        android:translationY="-150dp"
         android:text="Score final :"
         android:textSize="32dp"
         android:visibility="invisible"/>
@@ -49,8 +49,8 @@
         android:id="@+id/scoreMeilleur"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_alignTop="@+id/gameover"
+        android:layout_centerInParent="true"
+        android:translationY="200dp"
         android:text="Meilleur Score :"
         android:textSize="40dp"
         android:layout_margin="16dp"
@@ -61,7 +61,7 @@
         android:layout_width="150dp"
         android:layout_height="75dp"
         android:layout_centerHorizontal="true"
-        android:layout_alignBottom="@+id/gameover"
+        android:layout_below="@+id/gameover"
         android:background="@drawable/tryagain"
         android:visibility="invisible"
         android:onClick="tryagain"/>
@@ -204,6 +204,70 @@
         android:text="Niveau X:"
         android:textSize="32dp"
         android:visibility="visible"/>
+
+    <ImageView
+        android:id="@+id/infofond"
+        android:layout_width="320dp"
+        android:layout_height="170dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/custom_gris"
+        android:translationY="-75dp"
+        android:visibility="invisible"/>
+
+    <TextView
+        android:id="@+id/inforecup"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="Vous avez une sauvegarde pour ce mode de jeu, souhaitez vous retourner au niveau sauvé ?"
+        android:layout_centerInParent="true"
+        android:textSize="24dp"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:translationY="-85dp"
+        android:visibility="invisible"/>
+
+    <TextView
+        android:id="@+id/infoniveau"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="*Votre score sera de retour à 0."
+        android:layout_below="@+id/inforecup"
+        android:layout_centerInParent="true"
+        android:textSize="10dp"
+        android:translationY="-75dp"
+        android:visibility="invisible"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        android:translationY="-75dp"
+        android:layout_alignParentBottom="true">
+        
+        <Button
+            android:id="@+id/chargerniveau"
+            android:layout_width="wrap_content"
+            android:layout_height="75dp"
+            android:background="@drawable/custom_vert"
+            android:layout_weight="1"
+            android:text="Retourner à ce niveau !"
+            android:visibility="invisible"/>
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/reprendreniveau"
+            android:layout_width="wrap_content"
+            android:layout_height="75dp"
+            android:background="@drawable/custom_jaune"
+            android:layout_weight="1"
+            android:text="Reprendre au niveau 1 !"
+            android:visibility="invisible"/>
+    </LinearLayout>
 
 
 </RelativeLayout>

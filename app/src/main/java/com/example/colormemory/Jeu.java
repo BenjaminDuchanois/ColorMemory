@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,7 +21,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.net.FileNameMap;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Timer;
@@ -36,7 +36,8 @@ public class Jeu extends AppCompatActivity {
 
     //Déclaration de toutes les variables :
     //Les affichages :
-    private TextView points_text, difficulte_text, niveau_text, nbVies_text, scoreFinal, scoreMeilleur, chrono_text;
+    private TextView points_text, difficulte_text, niveau_text, nbVies_text, scoreFinal, scoreMeilleur, chrono_text,
+            inforecup, infoniveau;
 
     private Timer chrono;
 
@@ -70,10 +71,13 @@ public class Jeu extends AppCompatActivity {
 
     //Les boutons :
     private Button boutonRouge, boutonBleu, boutonVert, boutonJaune, boutonOrange, boutonRose,
-            boutonTurquoise, boutonMarron, boutonGris, boutonViolet, boutonStart;
+            boutonTurquoise, boutonMarron, boutonGris, boutonViolet, boutonStart,
+            chargerniveau, reprendreniveau;
 
     //L'aléatoire :
     private Random alea = new Random();
+
+    private ImageView infofond;
 
 
     @Override
@@ -85,12 +89,18 @@ public class Jeu extends AppCompatActivity {
         userID = mAuth.getCurrentUser().getUid();
         scoreUser = FirebaseDatabase.getInstance().getReference().child("ID").child(userID);
 
+        chargerPartie();
 
         //Récupère l'ID des affichages et de start :
         difficulte_text = findViewById(R.id.textViewDifficulte);
         niveau_text = findViewById(R.id.textViewNiveau);
         nbVies_text = findViewById(R.id.textViewVies);
         points_text = findViewById(R.id.textViewPoints);
+        infofond = findViewById(R.id.infofond);
+        infoniveau = findViewById(R.id.infoniveau);
+        inforecup = findViewById(R.id.inforecup);
+        reprendreniveau = findViewById(R.id.reprendreniveau);
+        chargerniveau = findViewById(R.id.chargerniveau);
         boutonStart = findViewById(R.id.start);
         scoreFinal = findViewById(R.id.scoreFinal);
         scoreMeilleur = findViewById(R.id.scoreMeilleur);
@@ -108,6 +118,9 @@ public class Jeu extends AppCompatActivity {
         scoreMeilleur.setTypeface(font);
         scoreFinal.setTypeface(font);
         chrono_text.setTypeface(font);
+        inforecup.setTypeface(font);
+        chargerniveau.setTypeface(font);
+        reprendreniveau.setTypeface(font);
 
         //Définition des son :
         son_rouge = MediaPlayer.create(this, R.raw.sound81);
@@ -284,6 +297,7 @@ public class Jeu extends AppCompatActivity {
 
     }
 
+    //Programmation du chrono :
     public void modeChrono()
     {
         runOnUiThread(new Runnable() {
@@ -293,7 +307,7 @@ public class Jeu extends AppCompatActivity {
             }
         });
         chrono = new Timer();
-        time = nbAppuie*2;
+        time = nbAppuie + 2;
         chrono.schedule(new TimerTask() {
 
             @Override
@@ -341,6 +355,7 @@ public class Jeu extends AppCompatActivity {
         }, 0, 1000);
     }
 
+    //Quand l'utilisateur se trompe ou ne joue pas assez vite :
     public void erreur(){
         //Perd une vie :
         nbVies = nbVies-1;
@@ -921,7 +936,6 @@ public class Jeu extends AppCompatActivity {
     //Mise en place des boutons et de l'interface de jeu :
     public void InterfaceJeu(){
 
-        fin = false;
         //Réactive les boutons et retire l'interface de fin
         boutonRouge.setVisibility(View.VISIBLE);
         boutonBleu.setVisibility(View.VISIBLE);
@@ -939,6 +953,11 @@ public class Jeu extends AppCompatActivity {
         nbVies_text.setVisibility(View.VISIBLE);
         difficulte_text.setVisibility(View.VISIBLE);
         niveau_text.setVisibility(View.VISIBLE);
+        inforecup.setVisibility(View.INVISIBLE);
+        infoniveau.setVisibility(View.INVISIBLE);
+        infofond.setVisibility(View.INVISIBLE);
+        chargerniveau.setVisibility(View.INVISIBLE);
+        reprendreniveau.setVisibility(View.INVISIBLE);
         findViewById(R.id.gameover).setVisibility(View.GONE);
         findViewById(R.id.tryagain).setVisibility(View.GONE);
         findViewById(R.id.congrats).setVisibility(View.GONE);
@@ -947,7 +966,6 @@ public class Jeu extends AppCompatActivity {
 
     //Retrait des boutons, passage en interface de fin :
     public void InterfaceFin(){
-        fin = true;
         MajScore();
 
         //Désactive tous les boutons pour donner place à un écran de fin
@@ -1205,6 +1223,89 @@ public class Jeu extends AppCompatActivity {
             default:
                 break;
         }
+    }
+
+    //Restauration du dernier niveau atteint :
+    public void chargerPartie(){
+        scoreUser.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                switch (difficulte)
+                {
+                    case 1:
+                        if (dataSnapshot.child("Facile").getValue(Integer.class) != null)
+                            if (dataSnapshot.child("Facile").getValue(Integer.class) > 1)
+                                InterfaceChargement(dataSnapshot.child("Facile").getValue(Integer.class));
+                        break;
+                    case 2:
+                        if (dataSnapshot.child("Facile").getValue(Integer.class) != null)
+                            if (dataSnapshot.child("Difficile").getValue(Integer.class) > 1)
+                                InterfaceChargement(dataSnapshot.child("Difficile").getValue(Integer.class));
+                        break;
+                    case 3:
+                        if (dataSnapshot.child("Facile").getValue(Integer.class) != null)
+                            if (dataSnapshot.child("Expert").getValue(Integer.class) > 1)
+                                InterfaceChargement(dataSnapshot.child("Expert").getValue(Integer.class));
+                        break;
+                    case 4:
+                        if (dataSnapshot.child("Facile").getValue(Integer.class) != null)
+                            if (dataSnapshot.child("Test").getValue(Integer.class) > 1)
+                                InterfaceChargement(dataSnapshot.child("Test").getValue(Integer.class));
+                        break;
+                    case 5:
+                        if (dataSnapshot.child("Facile").getValue(Integer.class) != null)
+                            if (dataSnapshot.child("Special").getValue(Integer.class) > 1)
+                                InterfaceChargement(dataSnapshot.child("Special").getValue(Integer.class));
+                        break;
+                    case 6:
+                        if (dataSnapshot.child("Facile").getValue(Integer.class) != null)
+                            if (dataSnapshot.child("Chrono").getValue(Integer.class) > 1)
+                                InterfaceChargement(    dataSnapshot.child("Chrono").getValue(Integer.class));
+                        break;
+                        default:
+                            break;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    //Interface pour reprendre au niveau enregistrer ou non :
+    public void InterfaceChargement(final Integer n)
+    {
+        InterfaceFin();
+        scoreMeilleur.setVisibility(View.INVISIBLE);
+        scoreFinal.setVisibility(View.INVISIBLE);
+
+        findViewById(R.id.vue_niveau1).setVisibility(View.GONE);
+        inforecup.setVisibility(View.VISIBLE);
+        infoniveau.setVisibility(View.VISIBLE);
+        infofond.setVisibility(View.VISIBLE);
+        chargerniveau.setVisibility(View.VISIBLE);
+        reprendreniveau.setVisibility(View.VISIBLE);
+        difficulte_text.setVisibility(View.VISIBLE);
+
+        inforecup.setText("Vous avez une sauvegarde pour ce mode de jeu, souhaitez vous retourner au niveau " + n + " ?");
+        reprendreniveau.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                niveau = 1;
+                InterfaceJeu();
+                Base();
+            }
+        });
+        chargerniveau.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                niveau = n;
+                InterfaceJeu();
+                Base();
+            }
+        });
     }
 
     //Retour au menu :
