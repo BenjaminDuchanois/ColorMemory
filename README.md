@@ -7,8 +7,8 @@ Mode Test et mode Spécial (Pour les test et un bonus);
 Mode Chrono (2sec + 1sec par appuie);
 
 
-Niveaux : 7;
-Boutons : 10;
+Niveaux : 9;
+Boutons : 12;
 
 Sons propres à chaque bouton quand ils sont préssés;
 
@@ -44,4 +44,4 @@ Mise à jour des design et utilisation d'un menu pour les options (Progress barr
 
 Corrections des derniers bug, normalement tout est bon;
 
-Tableau des scores.
+Tableau des scores;
