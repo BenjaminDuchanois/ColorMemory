@@ -1489,6 +1489,7 @@ public class Jeu extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 niveau = 1;
+                SauvegardeNiveau();
                 InterfaceJeu();
                 Base();
             }
@@ -1501,6 +1502,33 @@ public class Jeu extends AppCompatActivity {
                 Base();
             }
         });
+    }
+
+    public void SauvegardeNiveau()
+    {
+        switch ((difficulte))
+        {
+            case 1:
+                scoreUser.child("Facile").setValue(niveau);
+                break;
+            case 2:
+                scoreUser.child("Difficile").setValue(niveau);
+                break;
+            case 3:
+                scoreUser.child("Expert").setValue(niveau);
+                break;
+            case 4:
+                scoreUser.child("Test").setValue(niveau);
+                break;
+            case 5:
+                scoreUser.child("Special").setValue(niveau);
+                break;
+            case 6:
+                scoreUser.child("Chrono").setValue(niveau);
+                break;
+            default:
+                break;
+        }
     }
 
     //Retour au menu :
@@ -1652,29 +1680,8 @@ public class Jeu extends AppCompatActivity {
         super.onStop();
         MajScore();
         chrono_erreur = true;
-        switch ((difficulte))
-        {
-            case 1:
-                scoreUser.child("Facile").setValue(niveau);
-                break;
-            case 2:
-                scoreUser.child("Difficile").setValue(niveau);
-                break;
-            case 3:
-                scoreUser.child("Expert").setValue(niveau);
-                break;
-            case 4:
-                scoreUser.child("Test").setValue(niveau);
-                break;
-            case 5:
-                scoreUser.child("Special").setValue(niveau);
-                break;
-            case 6:
-                scoreUser.child("Chrono").setValue(niveau);
-                break;
-            default:
-                break;
-        }
+        if ((niveau != 1) && (niveau != 10))
+            SauvegardeNiveau();
     }
 }
 
