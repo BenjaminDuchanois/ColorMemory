@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
@@ -13,7 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".HightScore"></activity>
+        <activity android:name=".Score.HightScore"></activity>
         <activity android:name=".AccountActivity.SignupActivity" />
         <activity android:name=".AccountActivity.ResetPasswordActivity" />
         <activity android:name=".AccountActivity.LoginActivity" />
@@ -25,6 +26,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name="com.example.colormemory.SensorService.SensorService"
+            android:enabled="true" >
+        </service>
+
+        <receiver
+            android:name="com.example.colormemory.SensorService.SensorRestarterBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true"
+            android:label="RestartServiceWhenStopped">
+        </receiver>
+
     </application>
 
 </manifest>

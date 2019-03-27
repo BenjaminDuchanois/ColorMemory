@@ -1,11 +1,14 @@
 package com.example.colormemory;
 
 import android.annotation.SuppressLint;
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
@@ -18,6 +21,8 @@ import android.widget.Toast;
 
 import com.example.colormemory.AccountActivity.LoginActivity;
 import com.example.colormemory.AccountActivity.SignupActivity;
+import com.example.colormemory.Score.HightScore;
+import com.example.colormemory.SensorService.SensorService;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,7 +33,19 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+//julliard.anthony@gmail.com
+//aby_t@esiee-amiens.fr
+//pillon.tibo@gmail.com
+
 public class MainActivity extends AppCompatActivity {
+
+    //Pour faire tourner l'app en tache de fond :
+    Intent mServiceIntent;
+    private SensorService mSensorService;
+    Context ctx;
+    public Context getCtx() {
+        return ctx;
+    }
 
     private DatabaseReference scoreUser;
 
@@ -52,6 +69,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Pour faire tourner l'app en tache de fond :
+        ctx = this;
+        setContentView(R.layout.activity_main);
+        mSensorService = new SensorService(getCtx());
+        mServiceIntent = new Intent(getCtx(), mSensorService.getClass());
+        if (!isMyServiceRunning(mSensorService.getClass())) {
+            startService(mServiceIntent);
+        }
+
 
         auth = FirebaseAuth.getInstance();
         email = (TextView) findViewById(R.id.useremail);
@@ -340,6 +367,20 @@ public class MainActivity extends AppCompatActivity {
 
     };
 
+
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                Log.i ("isMyServiceRunning?", true+"");
+                return true;
+            }
+        }
+        Log.i ("isMyServiceRunning?", false+"");
+        return false;
+    }
+
+
     public void signOut() {
         auth.signOut();
 
@@ -379,5 +420,13 @@ public class MainActivity extends AppCompatActivity {
         if (authListener != null) {
             auth.removeAuthStateListener(authListener);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        stopService(mServiceIntent);
+        //Appelles les services quand l'app est fermée
+        super.onDestroy();
+
     }
 }

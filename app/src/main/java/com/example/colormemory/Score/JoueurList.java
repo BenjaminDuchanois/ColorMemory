@@ -1,4 +1,4 @@
-package com.example.colormemory;
+package com.example.colormemory.Score;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.colormemory.R;
 
 import java.util.List;
 

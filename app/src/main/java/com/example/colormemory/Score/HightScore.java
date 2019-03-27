@@ -1,4 +1,4 @@
-package com.example.colormemory;
+package com.example.colormemory.Score;
 
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.colormemory.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,6 +30,7 @@ public class HightScore extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hight_score);
+
 
         _rang = findViewById(R.id.highscorerang);
         _score = findViewById(R.id.highscorescore);

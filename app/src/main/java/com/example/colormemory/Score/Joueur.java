@@ -1,4 +1,4 @@
-package com.example.colormemory;
+package com.example.colormemory.Score;
 
 //Class Joueur pour l'affichage dans les HighScores
 public class Joueur {
