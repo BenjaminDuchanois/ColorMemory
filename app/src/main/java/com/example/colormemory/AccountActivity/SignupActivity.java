@@ -70,22 +70,22 @@ public class SignupActivity extends AppCompatActivity {
 
 
                 if (TextUtils.isEmpty(pseudo)) {
-                    Toast.makeText(getApplicationContext(), "Entrez votre pseudo !", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.prompt_name, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(getApplicationContext(), "Entrez votre adresse mail !", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.prompt_email, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(getApplicationContext(), "Entrez votre mot de passe !", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.prompt_password, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (password.length() < 6) {
-                    Toast.makeText(getApplicationContext(), "Mot de passe trop court, saisissez au moins 6 caractères !", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.bad_password, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -96,10 +96,10 @@ public class SignupActivity extends AppCompatActivity {
                             .addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
-                                    Toast.makeText(SignupActivity.this, "Création de compte réussie :" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(SignupActivity.this, getString(R.string.compte_create) + task.isSuccessful(), Toast.LENGTH_SHORT).show();
                                     progressBar.setVisibility(View.GONE);
                                     if (!task.isSuccessful()) {
-                                        Toast.makeText(SignupActivity.this, "Connexion échouée." + task.getException(),
+                                        Toast.makeText(SignupActivity.this, getString(R.string.connen) + task.getException(),
                                                 Toast.LENGTH_SHORT).show();
                                     } else {
                                         startActivity(new Intent(SignupActivity.this, MainActivity.class).putExtra("Pseudo", pseudo));

@@ -3,15 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item android:id="@+id/deconnexion"
-        android:title="Deconnexion"
+        android:title="@string/sign_out"
         app:showAsAction="never"/>
 
     <item android:id="@+id/suppression"
-        android:title="Supprimer le compte"
+        android:title="@string/del_acct"
         app:showAsAction="never"/>
 
     <item android:id="@+id/change_mdp"
-        android:title="Changer le mot de passe"
+        android:title="@string/chg_pass"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/language"
+        android:title="Change language"
         app:showAsAction="never"/>
 
 </menu>

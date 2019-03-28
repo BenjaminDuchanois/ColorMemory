@@ -1,11 +1,17 @@
 package com.example.colormemory;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.ActivityManager;
+import android.app.AlertDialog;
 import android.app.Service;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -34,6 +40,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Locale;
+
 //julliard.anthony@gmail.com
 //aby_t@esiee-amiens.fr
 //pillon.tibo@gmail.com
@@ -50,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
     private DatabaseReference scoreUser;
 
-    private String userID, pseudo;
+    private String userID, pseudo, lang;
 
     private Button changePassword;
 
@@ -70,6 +78,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //loadLocale();
 
         //Pour faire tourner l'app en tache de fond :
         ctx = this;
@@ -280,7 +290,7 @@ public class MainActivity extends AppCompatActivity {
                 progressBar.setVisibility(View.VISIBLE);
                 if (user != null && !newPassword.getText().toString().trim().equals("")) {
                     if (newPassword.getText().toString().trim().length() < 6) {
-                        newPassword.setError("Le mot de passe est trop court, il faut au moins 6 caractères !");
+                        newPassword.setError(getString(R.string.bad_password));
                         progressBar.setVisibility(View.GONE);
                     } else {
                         user.updatePassword(newPassword.getText().toString().trim())
@@ -288,18 +298,18 @@ public class MainActivity extends AppCompatActivity {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful()) {
-                                            Toast.makeText(MainActivity.this, "Le mot de passe a été changé !", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(MainActivity.this, R.string.mdp_change, Toast.LENGTH_SHORT).show();
                                             signOut();
                                             progressBar.setVisibility(View.GONE);
                                         } else {
-                                            Toast.makeText(MainActivity.this, "Le changement de mot de passe a échoué.", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(MainActivity.this, R.string.mdp_changen, Toast.LENGTH_SHORT).show();
                                             progressBar.setVisibility(View.GONE);
                                         }
                                     }
                                 });
                     }
                 } else if (newPassword.getText().toString().trim().equals("")) {
-                    newPassword.setError("Entrer votre mot de passe");
+                    newPassword.setError(getString(R.string.prompt_password));
                     progressBar.setVisibility(View.GONE);
                 }
             }
@@ -331,12 +341,12 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
-                                    Toast.makeText(MainActivity.this, "Votre profil a été supprimé.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(MainActivity.this, R.string.prof_supr, Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(MainActivity.this, SignupActivity.class));
                                     finish();
                                     progressBar.setVisibility(View.GONE);
                                 } else {
-                                    Toast.makeText(MainActivity.this, "Votre profil n'a pas pu être supprimé !", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(MainActivity.this, R.string.prof_suprn, Toast.LENGTH_SHORT).show();
                                     progressBar.setVisibility(View.GONE);
                                 }
                             }
@@ -347,6 +357,10 @@ public class MainActivity extends AppCompatActivity {
         {
             newPassword.setVisibility(View.VISIBLE);
             changePassword.setVisibility(View.VISIBLE);
+        }
+        else if (item.getItemId() == R.id.language)
+        {
+            ChangeLanguage();
         }
         else
         {
@@ -400,6 +414,57 @@ public class MainActivity extends AppCompatActivity {
         };
     }
 
+    private void ChangeLanguage(){
+        final String[] listItems = {"Français", "Belge", "English", "Español"};
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(MainActivity.this);
+        mBuilder.setTitle("Choose Language...");
+        mBuilder.setSingleChoiceItems(listItems, -1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                switch (i){
+                    case 0:
+                        setLocale("fr-rFR");
+                        recreate();
+                        break;
+                    case 1:
+                        setLocale("fr-rBE");
+                        recreate();
+                        break;
+                    case 2:
+                        setLocale("en");
+                        recreate();
+                        break;
+                    case 3:
+                        setLocale("es");
+                        recreate();
+                        break;
+                }
+                dialogInterface.dismiss();
+            }
+        });
+
+        AlertDialog mDialog = mBuilder.create();
+        mDialog.show();
+    }
+
+    private void setLocale(String lang){
+        Locale locale = new Locale(lang);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.setLocale(locale);
+        getBaseContext().getResources().updateConfiguration(config,
+                getBaseContext().getResources().getDisplayMetrics());
+        SharedPreferences.Editor editor = getSharedPreferences("Settings", MODE_PRIVATE).edit();
+        editor.putString("My_lang", lang);
+        editor.apply();
+    }
+
+    private void loadLocale(){
+        SharedPreferences prefs = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+        String language = prefs.getString("My_Lang", "");
+        setLocale(language);
+    }
+
     public void HighScore(View view){
         Intent score = new Intent(MainActivity.this, HightScore.class);
         startActivity(score);
@@ -427,8 +492,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-
-        //Appelles les services quand l'app est fermée
         super.onDestroy();
 
     }

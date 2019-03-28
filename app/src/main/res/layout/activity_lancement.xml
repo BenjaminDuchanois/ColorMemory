@@ -34,7 +34,7 @@
                             android:layout_centerInParent="true"
                             android:background="@drawable/custom_vert"
                             android:textSize="32dp"
-                            android:text="FACILE" />
+                            android:text="@string/facile" />
 
                     <ImageView
                         android:id="@+id/coche_difficile"
@@ -57,7 +57,7 @@
                             android:background="@drawable/custom_jaune"
                             android:layout_margin="16dp"
                             android:textSize="32dp"
-                            android:text="DIFFICILE" />
+                            android:text="@string/difficile" />
 
 
                     <ImageView
@@ -83,7 +83,7 @@
                         android:textSize="32dp"
                         android:layout_marginTop="16dp"
                         android:visibility="invisible"
-                        android:text="Spécial" />
+                        android:text="@string/special" />
 
                     <ImageView
                         android:id="@+id/coche_expert"
@@ -102,7 +102,7 @@
                         android:id="@+id/expert"
                         android:layout_width="wrap_content"
                         android:layout_height="64dp"
-                        android:text="EXPERT"
+                        android:text="@string/expert"
                         android:layout_below="@+id/difficile"
                         android:background="@drawable/custom_rouge"
                         android:textSize="32dp"
@@ -135,7 +135,7 @@
                         android:id="@+id/text_chrono"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="CHRONO"
+                        android:text="@string/chrono"
                         android:textSize="18dp"
                         android:layout_below="@+id/chrono"
                         android:layout_alignLeft="@+id/chrono"

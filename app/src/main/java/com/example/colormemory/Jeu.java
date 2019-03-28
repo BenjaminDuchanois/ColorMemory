@@ -162,8 +162,8 @@ public class Jeu extends AppCompatActivity {
         switchDifficulte();
         if(niveau<10)
         {
-            niveau_text.setText("Niveau " + niveau);
-            nbVies_text.setText(nbVies + " Vies");
+            niveau_text.setText(getString(R.string.lvl) + " " + niveau);
+            nbVies_text.setText(nbVies + " " + getString(R.string.lifes));
 
             //Rend visible le bouton Start :
             boutonStart.setVisibility(View.VISIBLE);
@@ -289,7 +289,7 @@ public class Jeu extends AppCompatActivity {
             //Si la verification est terminé, on passe à la suite :
             if (la_verif.isEmpty()){
                 score = score + (poid*niveau);
-                points_text.setText(score + " points");
+                points_text.setText(score + " " + getString(R.string.points));
                 synchronized (attente){
                     index++;
                     attente.notify();
@@ -331,7 +331,7 @@ public class Jeu extends AppCompatActivity {
                                         chrono_text.setVisibility(View.INVISIBLE);
                                     }
                                 });
-                                Toast.makeText(getApplicationContext(), "Pas assez rapide ! Vous perdez une vie", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), R.string.timerfail, Toast.LENGTH_SHORT).show();
                                 erreur();
                             }
                             runOnUiThread(new Runnable() {
@@ -369,7 +369,7 @@ public class Jeu extends AppCompatActivity {
                 @Override
                 public void run() {
                     if (time != 0)
-                        Toast.makeText(getApplicationContext(), "Non ! Vous perdez une vie !", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), R.string.userfail, Toast.LENGTH_SHORT).show();
                 }
             });
         else //Il n'y a plus de vie la partie est perdue :
@@ -382,9 +382,9 @@ public class Jeu extends AppCompatActivity {
             @Override
             public void run() {
                 if (nbVies == 1)
-                    nbVies_text.setText("1 Vie");
+                    nbVies_text.setText(R.string.alife);
                 else
-                    nbVies_text.setText(nbVies + " Vies");
+                    nbVies_text.setText(nbVies + " " + getString(R.string.lifes));
             }
         });
 
@@ -436,21 +436,21 @@ public class Jeu extends AppCompatActivity {
                 nbAppuie_max = 7;
                 poid = 1;
                 nbVies = 2;
-                difficulte_text.setText("Mode Facile");
+                difficulte_text.setText(R.string.easymode);
                 break;
             case 2:
                 nbAppuie_min = 3;
                 nbAppuie_max = 10;
                 poid = 1.5;
                 nbVies = 2;
-                difficulte_text.setText("Mode Difficile");
+                difficulte_text.setText(R.string.diffmode);
                 break;
             case 3:
                 nbAppuie_min = 4;
                 nbAppuie_max = 12;
                 poid = 2;
                 nbVies = 2;
-                difficulte_text.setText("Mode Expert");
+                difficulte_text.setText(R.string.expmode);
                 break;
             case 4:
                 nbAppuie_min = 1;
@@ -464,14 +464,14 @@ public class Jeu extends AppCompatActivity {
                 nbAppuie_max = 12;
                 poid = 15;
                 nbVies = 3;
-                difficulte_text.setText("Mode Spécial");
+                difficulte_text.setText(R.string.spemode);
                 break;
             case 6:
                 nbAppuie_min = 1;
                 nbAppuie_max = 8;
                 poid = 1.5;
                 nbVies = 3;
-                difficulte_text.setText("Mode Chrono");
+                difficulte_text.setText(R.string.chronomode);
                 break;
             default:
                 break;

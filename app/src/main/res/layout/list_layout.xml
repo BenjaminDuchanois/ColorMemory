@@ -61,7 +61,7 @@
 
             <TextView
                 android:id="@+id/joueurscore"
-                android:text="Score"
+                android:text="@string/score"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -71,7 +71,7 @@
 
             <TextView
                 android:id="@+id/joueurname"
-                android:text="Pseudo"
+                android:text="@string/pseudo"
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
                 android:layout_marginLeft="105dp"
@@ -80,7 +80,7 @@
 
             <TextView
                 android:id="@+id/joueurmail"
-                android:text="Mail"
+                android:text="@string/mail"
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
                 android:layout_alignParentBottom="true"

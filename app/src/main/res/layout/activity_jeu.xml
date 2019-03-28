@@ -5,289 +5,447 @@
     android:id="@+id/color_back"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Jeu"
-    android:background="@drawable/fond">
+    android:background="@drawable/fond"
+    tools:context=".Jeu">
 
-    <RelativeLayout
-        android:id="@+id/relative"
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.0" />
+
+    <ImageView
+        android:id="@+id/gameover"
+        android:layout_width="200dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/ic_gameover"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/guideline6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline4" />
+
+    <ImageView
+        android:id="@+id/congrats"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp"
-        android:paddingRight="16dp"
-        android:paddingLeft="16dp">
+        android:layout_height="200dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/congrats"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/chargerniveau"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline4" />
 
-        <ImageView
-            android:id="@+id/gameover"
-            android:layout_width="200dp"
-            android:layout_height="150dp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerInParent="true"
-            android:background="@drawable/ic_gameover"
-            android:visibility="invisible"/>
+    <TextView
+        android:id="@+id/scoreFinal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="36dp"
+        android:text="Score final :"
+        android:textSize="32dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/gameover"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <ImageView
-            android:id="@+id/congrats"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerInParent="true"
-            android:background="@drawable/congrats"
-            android:visibility="invisible"/>
+    <TextView
+        android:id="@+id/scoreMeilleur"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Meilleur Score :"
+        android:textSize="40dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline6" />
 
-        <TextView
-            android:id="@+id/scoreFinal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:translationY="-150dp"
-            android:text="Score final :"
-            android:textSize="32dp"
-            android:visibility="invisible"/>
+    <Button
+        android:id="@+id/tryagain"
+        android:layout_width="150dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/tryagain"
+        android:onClick="tryagain"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gameover" />
 
-        <TextView
-            android:id="@+id/scoreMeilleur"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:translationY="200dp"
-            android:text="Meilleur Score :"
-            android:textSize="40dp"
-            android:layout_margin="16dp"
-            android:visibility="invisible"/>
-
-        <Button
-            android:id="@+id/tryagain"
-            android:layout_width="150dp"
-            android:layout_height="75dp"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/gameover"
-            android:background="@drawable/tryagain"
-            android:visibility="invisible"
-            android:onClick="tryagain"/>
-
-        <Button
-            android:id="@+id/menu"
-            android:layout_width="75dp"
-            android:layout_height="50dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:background="@drawable/backmenu"
-            android:visibility="invisible"
-            android:onClick="menu"/>
-
-        <Button
-            android:id="@+id/start"
-            android:layout_width="250dp"
-            android:layout_height="200dp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerInParent="true"
-            android:background="@drawable/ic_start"
-            android:visibility="gone"
-            android:onClick="Lancer"/>
+    <Button
+        android:id="@+id/menu"
+        android:layout_width="75dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/backmenu"
+        android:onClick="menu"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline5" />
 
 
+    <TextView
+        android:id="@+id/chronometre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="32dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="25"
+        android:textColor="@color/white"
+        android:textSize="25dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/guideline4"
+        app:layout_constraintEnd_toStartOf="@+id/textViewDifficulte"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline5" />
 
-        <include
-            layout="@layout/niveau_1"
-            android:id="@+id/vue_niveau1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:visibility="gone"/>
+    <TextView
+        android:id="@+id/textViewDifficulte"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/difficulty"
+        android:textSize="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/textViewNiveau"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline5"
+        app:layout_constraintVertical_bias="0.375" />
 
-        <include
-            layout="@layout/niveau_2"
-            android:id="@+id/vue_niveau2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:visibility="gone"/>
+    <TextView
+        android:id="@+id/textViewNiveau"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/niveau"
+        android:textSize="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <include
-            layout="@layout/niveau_3"
-            android:id="@+id/vue_niveau3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:visibility="gone"/>
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.25" />
 
-        <include
-            layout="@layout/niveau_4"
-            android:id="@+id/vue_niveau4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:visibility="gone"/>
+    <include
+        android:id="@+id/vue_niveau1"
+        layout="@layout/niveau_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/guideline6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline4" />
 
-        <include
-            layout="@layout/niveau_5"
-            android:id="@+id/vue_niveau5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:visibility="gone"/>
+    <include
+        android:id="@+id/vue_niveau2"
+        layout="@layout/niveau_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/guideline6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline4" />
 
-        <include
-            layout="@layout/niveau_6"
-            android:id="@+id/vue_niveau6"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:visibility="gone"/>
+    <include
+        android:id="@+id/vue_niveau3"
+        layout="@layout/niveau_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/guideline6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline4" />
 
-        <include
-            layout="@layout/niveau_7"
-            android:id="@+id/vue_niveau7"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:visibility="gone"/>
+    <include
+        android:id="@+id/vue_niveau4"
+        layout="@layout/niveau_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/guideline6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline4" />
 
-        <include
-            layout="@layout/niveau_8"
-            android:id="@+id/vue_niveau8"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:visibility="gone"/>
+    <include
+        android:id="@+id/vue_niveau5"
+        layout="@layout/niveau_5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/guideline6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline4" />
 
-        <include
-            layout="@layout/niveau_9"
-            android:id="@+id/vue_niveau9"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:visibility="gone"/>
+    <include
+        android:id="@+id/vue_niveau6"
+        layout="@layout/niveau_6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/guideline6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline4" />
 
-        <TextView
-            android:id="@+id/textViewPoints"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_margin="16dp"
-            android:text="Points :"
-            android:textSize="25dp"
-            android:visibility="visible"/>
+    <include
+        android:id="@+id/vue_niveau7"
+        layout="@layout/niveau_7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/guideline6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline4" />
 
-        <TextView
-            android:id="@+id/chronometre"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/textViewDifficulte"
-            android:text="25"
-            android:textSize="25dp"
-            android:textColor="@color/white"
-            android:layout_margin="32dp"
-            android:visibility="invisible"/>
+    <include
+        android:id="@+id/vue_niveau8"
+        layout="@layout/niveau_8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/guideline6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline4" />
 
-        <TextView
-            android:id="@+id/textViewVies"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_margin="16dp"
-            android:text="Vies :"
-            android:textSize="25dp"
-            android:visibility="visible"/>
+    <include
+        android:id="@+id/vue_niveau9"
+        layout="@layout/niveau_9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/guideline6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline4" />
 
-        <TextView
-            android:id="@+id/textViewDifficulte"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_margin="16dp"
-            android:text="Difficulté :"
-            android:textSize="32dp"
-            android:visibility="visible" />
+    <Button
+        android:id="@+id/start"
+        android:layout_width="250dp"
+        android:layout_height="200dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/ic_start"
+        android:onClick="Lancer"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/guideline6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline4"
+        app:layout_constraintVertical_bias="0.752" />
 
-        <TextView
-            android:id="@+id/textViewNiveau"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textViewDifficulte"
-            android:layout_centerHorizontal="true"
-            android:layout_margin="16dp"
-            android:text="Niveau X:"
-            android:textSize="32dp"
-            android:visibility="visible"/>
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
 
-        <ImageView
-            android:id="@+id/infofond"
-            android:layout_width="320dp"
-            android:layout_height="170dp"
-            android:layout_centerInParent="true"
-            android:background="@drawable/custom_gris"
-            android:translationY="-75dp"
-            android:visibility="invisible"/>
+    <ImageView
+        android:id="@+id/infofond"
+        android:layout_width="320dp"
+        android:layout_height="170dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/custom_gris"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/guideline6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline4" />
 
-        <TextView
-            android:id="@+id/inforecup"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:text="Vous avez une sauvegarde pour ce mode de jeu, souhaitez vous retourner au niveau sauvé ?"
-            android:layout_centerInParent="true"
-            android:textSize="24dp"
-            android:textStyle="bold"
-            android:textAlignment="center"
-            android:translationY="-85dp"
-            android:visibility="invisible"/>
+    <TextView
+        android:id="@+id/inforecup"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Vous avez une sauvegarde pour ce mode de jeu, souhaitez vous retourner au niveau sauvé ?"
+        android:textAlignment="center"
+        android:textSize="24dp"
+        android:textStyle="bold"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/infofond"
+        app:layout_constraintEnd_toEndOf="@+id/infofond"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/infofond"
+        app:layout_constraintTop_toTopOf="@+id/infofond"
+        app:layout_constraintVertical_bias="0.153" />
 
-        <TextView
-            android:id="@+id/infoniveau"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="*Votre score sera de retour à 0."
-            android:layout_below="@+id/inforecup"
-            android:layout_centerInParent="true"
-            android:textSize="10dp"
-            android:translationY="-75dp"
-            android:visibility="invisible"/>
+    <TextView
+        android:id="@+id/infoniveau"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="*Votre score sera de retour à 0."
+        android:textSize="10dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/infofond"
+        app:layout_constraintEnd_toEndOf="@+id/infofond"
+        app:layout_constraintStart_toStartOf="@+id/infofond"
+        app:layout_constraintTop_toBottomOf="@+id/inforecup" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:orientation="horizontal"
-            android:weightSum="3"
-            android:translationY="-75dp"
-            android:layout_alignParentBottom="true">
+    <Button
+        android:id="@+id/chargerniveau"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/custom_vert"
+        android:text="Retourner à ce niveau !"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.333"
+        app:layout_constraintStart_toEndOf="@+id/reprendreniveau"
+        app:layout_constraintTop_toTopOf="@+id/guideline6"
+        app:layout_constraintWidth_percent="0.75" />
 
-            <Button
-                android:id="@+id/chargerniveau"
-                android:layout_width="wrap_content"
-                android:layout_height="75dp"
-                android:background="@drawable/custom_vert"
-                android:layout_weight="1"
-                android:text="Retourner à ce niveau !"
-                android:visibility="invisible"/>
+    <Button
+        android:id="@+id/reprendreniveau"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/custom_jaune"
+        android:text="Reprendre au niveau 1 !"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline6"
+        app:layout_constraintWidth_percent="0.25" />
 
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"/>
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.75" />
 
-            <Button
-                android:id="@+id/reprendreniveau"
-                android:layout_width="wrap_content"
-                android:layout_height="75dp"
-                android:background="@drawable/custom_jaune"
-                android:layout_weight="1"
-                android:text="Reprendre au niveau 1 !"
-                android:visibility="invisible"/>
-        </LinearLayout>
+    <TextView
+        android:id="@+id/textViewPoints"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/score"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textViewVies"
+        app:layout_constraintHorizontal_bias="0.238"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline6"
+        app:layout_constraintVertical_bias="0.495" />
 
+    <TextView
+        android:id="@+id/textViewVies"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="52dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/lifes"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline6"
+        app:layout_constraintVertical_bias="0.49" />
 
-    </RelativeLayout>
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="1" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.33"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.66"/>
 
 </android.support.constraint.ConstraintLayout>
