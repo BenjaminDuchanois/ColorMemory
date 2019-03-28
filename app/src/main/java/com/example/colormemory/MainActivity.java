@@ -2,6 +2,7 @@ package com.example.colormemory;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
+import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -78,6 +79,8 @@ public class MainActivity extends AppCompatActivity {
         if (!isMyServiceRunning(mSensorService.getClass())) {
             startService(mServiceIntent);
         }
+
+        //SensorService.enqueueWork(this, new Intent());
 
 
         auth = FirebaseAuth.getInstance();
@@ -424,7 +427,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        stopService(mServiceIntent);
+
         //Appelles les services quand l'app est fermée
         super.onDestroy();
 

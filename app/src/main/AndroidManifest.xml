@@ -27,10 +27,9 @@
             </intent-filter>
         </activity>
 
-        <service
-            android:name="com.example.colormemory.SensorService.SensorService"
-            android:enabled="true" >
-        </service>
+        <service android:name="com.example.colormemory.SensorService.SensorService"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:enabled="true"/>
 
         <receiver
             android:name="com.example.colormemory.SensorService.SensorRestarterBroadcastReceiver"

@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.JobIntentService;
+import android.util.Log;
 
 import com.example.colormemory.NotifManager;
 import com.example.colormemory.Score.Joueur;
@@ -24,6 +26,40 @@ import java.util.TimerTask;
 
 public class SensorService extends Service {
 
+/*    public static final int JOB_ID = 1;
+
+    public static void enqueueWork(Context context, Intent work) {
+        enqueueWork(context, SensorService.class, JOB_ID, work);
+    }
+
+    @Override
+    protected void onHandleWork(@NonNull Intent intent) {
+        startTimer();
+    }
+
+    private Timer timer;
+    private TimerTask timerTask;
+
+    public void startTimer() {
+
+        timer = new Timer();
+
+        Log.i("Timer", "Start");
+        initializeTimerTask();
+
+        timer.schedule(timerTask, 1000, 5000); //
+    }
+
+
+    public void initializeTimerTask() {
+        timerTask = new TimerTask() {
+            public void run() {
+
+                Log.i("Switch", "OK");
+            }
+        };
+    }*/
+
     private ArrayList<Joueur> listJoueur = new ArrayList<>();
     private ArrayList<Joueur> listJoueur2 = new ArrayList<>();
     private Integer rang, rang2;
@@ -31,10 +67,16 @@ public class SensorService extends Service {
     private FirebaseAuth mAuth;
     private String userID;
 
+    @Override
+    public void onCreate() {
+        mAuth = FirebaseAuth.getInstance();
+        if (mAuth.getCurrentUser() != null) {
+            userID = mAuth.getCurrentUser().getUid();
+        }
+    }
 
     public SensorService(Context applicationContext) {
         super();
-        /*Quand l'appli est lancée*/
     }
 
     public SensorService() {
@@ -43,6 +85,7 @@ public class SensorService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
+        Log.i("Service", "Start");
         startTimer();
         return START_STICKY;
     }
@@ -50,7 +93,7 @@ public class SensorService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        //Quand l'app est fermée
+        Log.i("Service", "Destroy");
         Intent broadcastIntent = new Intent(this, SensorRestarterBroadcastReceiver.class);
 
         sendBroadcast(broadcastIntent);
@@ -64,6 +107,7 @@ public class SensorService extends Service {
 
         timer = new Timer();
 
+        Log.i("Timer", "Start");
         initializeTimerTask();
 
         timer.schedule(timerTask, 1000, 5000); //
@@ -73,19 +117,19 @@ public class SensorService extends Service {
         timerTask = new TimerTask() {
             public void run() {
 
+                Log.i("Switch", "OK");
                 switchtest = !switchtest;
 
-                if (switchtest)
-                    Test();
-                else
-                    Test2();
+                if ((mAuth.getCurrentUser() != null)&& userID != null) {
+                    if (switchtest)
+                        Test();
+                    else
+                        Test2();}
             }
         };
     }
 
     public void Test() {
-        mAuth = FirebaseAuth.getInstance();
-        userID = mAuth.getCurrentUser().getUid();
 
         //Toutes les 10 secondes que l'app soit ouverte ou non
 
@@ -121,7 +165,7 @@ public class SensorService extends Service {
                 }
 
                 if ((rang != null) && (rang2 != null))
-                    if ((rang > rang2))
+                    if ((rang > rang2) || (!userTop && userTop2))
                         createNotification();
             }
 
@@ -133,8 +177,6 @@ public class SensorService extends Service {
     }
 
     public void Test2() {
-                mAuth = FirebaseAuth.getInstance();
-                userID = mAuth.getCurrentUser().getUid();
 
                 //Toutes les 10 secondes que l'app soit ouverte ou non
 
